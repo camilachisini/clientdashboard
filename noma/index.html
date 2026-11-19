@@ -92,6 +92,13 @@ button.nm-stat:focus-visible { outline: 3px solid var(--teal); outline-offset: 3
 .nm-tl .nm-chip { display: inline-block; min-width: 22px; text-align: center; font-size: 12px; font-weight: 700; padding: 2px 6px; border-radius: 5px; }
 .nm-tl .nm-muted { opacity: .6; }
 .nm-tl .nm-status { white-space: nowrap; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 100px; border: 1px solid rgba(0, 72, 84, 0.35); }
+
+a.nm-card { color: inherit; text-decoration: none; cursor: pointer; transition: filter .15s, transform .15s; }
+a.nm-card:hover { filter: brightness(0.97); transform: translateY(-1px); }
+a.nm-card:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+.nm-tl a { color: inherit; text-decoration: none; }
+.nm-tl a:hover { text-decoration: underline; }
+.nm-tl a::after { content: ' ↗'; font-weight: 500; opacity: .5; }
 /* Fit everything in one screen */
 html, body { height: 100%; overflow: hidden; }
 .nm-wrap { height: 100vh; }
@@ -163,6 +170,11 @@ const pad = (n) => String(n).padStart(2, '0');
 const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 const label = (s) => `${MONTHS[Number(s.slice(5, 7)) - 1]} ${Number(s.slice(8, 10))}`;
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const linkOf = (t) => {
+  const c = String(t.client_link || '').trim();
+  if (/^https?:\/\//i.test(c)) return { url: c, client: true };
+  return { url: t.asana_url || `https://app.asana.com/0/0/${t.id}/f`, client: false };
+};
 const count = (tasks, list) => tasks.filter((t) => list.includes(t.status)).length;
 
 function sizeOf(t) {
@@ -244,7 +256,12 @@ function openList(name, list) {
       const chip = el('span', 'nm-chip', s.known ? s.size : '—'); if (s.known) chip.style.background = SIZE_BG[s.size];
       const c0 = el('td'); c0.appendChild(chip);
       const c4 = el('td'); c4.appendChild(el('span', 'nm-status', t.status));
-      tr.append(c0, el('td', 'nm-tl-name', t.name), el('td', t.owner ? null : 'nm-muted', t.owner || '—'), el('td', null, t.designer), c4, el('td', t.due ? null : 'nm-muted', t.due ? label(t.due) : 'No date'));
+      const nameTd = el('td', 'nm-tl-name');
+      const lk = linkOf(t);
+      const a = el('a', null, t.name); a.href = lk.url; a.target = '_blank'; a.rel = 'noopener';
+      a.title = lk.client ? 'Open in the client’s Asana' : 'Open in Asana';
+      nameTd.appendChild(a);
+      tr.append(c0, nameTd, el('td', t.owner ? null : 'nm-muted', t.owner || '—'), el('td', null, t.designer), c4, el('td', t.due ? null : 'nm-muted', t.due ? label(t.due) : 'No date'));
       tbody.appendChild(tr);
     });
     content.append(thead, tbody);
@@ -292,10 +309,12 @@ function render(data) {
     const track = el('div', 'nm-track');
     track.style.gridTemplateColumns = `repeat(${CAP}, minmax(0, 1fr)) var(--more-w)`;
     const makeCard = (t) => {
-      const card = el('div', `nm-card sz-${t.size.toLowerCase()}`);
+      const card = el('a', `nm-card sz-${t.size.toLowerCase()}`);
+      const lk = linkOf(t);
+      card.href = lk.url; card.target = '_blank'; card.rel = 'noopener';
       if (t.part < t.parts) card.classList.add('cont-next');
       if (t.part > 1) card.classList.add('cont-prev');
-      card.title = `${t.name}\nOwner: ${t.owner || '—'}\nDesigner: ${t.designer}\nStatus: ${t.status}\nDue: ${label(t.due)}`;
+      card.title = `${lk.client ? 'Open in the client’s Asana' : 'Open in Asana'}\n${t.name}\nOwner: ${t.owner || '—'}\nDesigner: ${t.designer}\nStatus: ${t.status}\nDue: ${label(t.due)}`;
       const top = el('div', 'nm-card-top');
       top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size + (t.known ? '' : '*')));
       const bottom = el('div', 'nm-card-bottom');

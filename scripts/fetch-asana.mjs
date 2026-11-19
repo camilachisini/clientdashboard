@@ -7,7 +7,7 @@ const PROJECT_ID = process.env.ASANA_PROJECT_ID || '1214040151426564';
 const TOKEN = process.env.ASANA_TOKEN;
 if (!TOKEN) { console.error('Missing ASANA_TOKEN'); process.exit(1); }
 
-const fields = 'name,assignee.name,due_on,custom_fields.name,custom_fields.display_value';
+const fields = 'name,assignee.name,due_on,permalink_url,custom_fields.name,custom_fields.display_value';
 let url = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=2099-01-01T00:00:00Z&limit=100&opt_fields=${encodeURIComponent(fields)}`;
 const raw = [];
 while (url) {
@@ -29,7 +29,9 @@ const tasks = raw.map((t) => ({
   owner: cf(t, 'Client task owner'),
   due: t.due_on || day(cf(t, 'Client Due Date')),
   status: cf(t, 'Status') || 'No status',
-  size: cf(t, 'Task size')
+  size: cf(t, 'Task size'),
+  client_link: cf(t, 'Client task link'),
+  asana_url: t.permalink_url || null
 }));
 
 await writeFile(process.env.OUTPUT || 'noma/data.json', JSON.stringify({ generated_at: new Date().toISOString(), tasks }, null, 2) + '\n');
