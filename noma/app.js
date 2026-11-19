@@ -87,6 +87,19 @@ function plan(tasks) {
     .sort((a, b) => b.done - a.done || !!b.started - !!a.started || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
     .forEach((t) => days.get(t.due).push({ ...t, slots: t.total, date: t.due }));
 
+  // Started work that doesn't fit today carries over to the next working day (split if part fits today).
+  if (dates.length > 1) {
+    const keep = []; const carry = []; let n = 0;
+    days.get(dates[0]).forEach((p) => {
+      if (n + p.slots <= CAP || !p.started) { keep.push(p); n += p.slots; return; }
+      const fit = Math.max(0, CAP - n);
+      if (fit > 0) { keep.push({ ...p, slots: fit }); n = CAP; }
+      carry.push({ ...p, slots: p.slots - fit, date: dates[1] });
+    });
+    days.set(dates[0], keep);
+    days.get(dates[1]).unshift(...carry);
+  }
+
   // Fill empty slots by pulling work forward from the following days (never later than its due date).
   // A task that doesn't fit whole is split: part now, the rest stays on its own day.
   const used = (d) => days.get(d).reduce((a, p) => a + p.slots, 0);
