@@ -116,8 +116,14 @@ function plan(tasks) {
     const list = days.get(date);
     const fit = []; const extra = []; let n = 0;
     list.forEach((p) => { if (n + p.slots <= CAP) { fit.push(p); n += p.slots; } else extra.push(p); });
-    // Hours due this day that had to move to later days.
-    const moved = horizon.filter((d) => d > date).reduce((a, d) => a + days.get(d).filter((p) => p.late && p.due === date).reduce((x, p) => x + p.slots, 0), 0);
+    // Work due this day that doesn't fit before it: shown in red under the day,
+    // and as ghost cards in the next free slots (a suggestion to confirm with the client).
+    const lateHere = new Map();
+    horizon.filter((d) => d > date).forEach((d) => days.get(d).forEach((p) => {
+      if (p.late && p.due === date) lateHere.set(p.id, { ...(lateHere.get(p.id) || p), slots: ((lateHere.get(p.id) || {}).slots || 0) + p.slots, late: false, part: 1, parts: 1 });
+    }));
+    lateHere.forEach((p) => extra.push(p));
+    const moved = [...lateHere.values()].reduce((a, p) => a + p.slots, 0);
     return { date, fit, extra, used: n, total: list.reduce((a, p) => a + p.slots, 0), moved };
   });
 }
@@ -138,8 +144,8 @@ function makeCard(t) {
   top.append(head, badges);
   const bottom = el('div', 'nm-card-bottom');
   const dueTxt = t.clientDue ? `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}` : 'No due date yet';
-  bottom.appendChild(el('span', 'nm-designer', t.late ? `Due ${dueTxt} · confirm new date with client` : dueTxt));
-  if (t.late) { card.classList.add('is-over'); nameEl.prepend(el('span', 'nm-warn', '⚠')); }
+  bottom.appendChild(el('span', 'nm-designer', t.late ? `Suggested · due ${dueTxt}, confirm with client` : dueTxt));
+  if (t.late) card.classList.add('is-ghost');
   if (t.done) { card.classList.add('is-done'); bottom.appendChild(el('span', 'nm-done', '✓ Delivered')); }
   if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
   card.append(top, bottom);
