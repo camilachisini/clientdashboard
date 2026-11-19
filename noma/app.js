@@ -71,6 +71,8 @@ function plan(tasks) {
   const dates = windowDates();
   const days = new Map(dates.map((d) => [d, []]));
   const rank = (t) => (t.order == null ? 1e9 : t.order);
+  // Further along first: Internal review, then In progress, then the rest.
+  const stage = (t) => (t.status === 'Internal review' ? 2 : t.status === 'In progress' ? 1 : 0);
   // Only work the studio still has to do; anything past due lands on today.
   // Delivered today (or due today and delivered) stays on today, faded.
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
@@ -84,7 +86,7 @@ function plan(tasks) {
     .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
     .filter((t) => days.has(t.due))
     .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
-    .sort((a, b) => b.done - a.done || !!b.started - !!a.started || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
+    .sort((a, b) => b.done - a.done || stage(b) - stage(a) || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
     .forEach((t) => days.get(t.due).push({ ...t, slots: t.total, date: t.due }));
 
   // Started work that doesn't fit today carries over to the next working day (split if part fits today).
