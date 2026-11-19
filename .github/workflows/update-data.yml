@@ -27,3 +27,4 @@ jobs:
           git config user.email "dashboard-bot@users.noreply.github.com"
           git add noma/data.json
           git diff --cached --quiet || (git commit -m "Update dashboard data" && git push)
+
