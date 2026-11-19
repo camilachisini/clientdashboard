@@ -2,8 +2,8 @@ name: Update dashboard data
 
 on:
   schedule:
-    # Every 30 minutes, Monday to Friday (UTC)
-    - cron: '*/30 * * * 1-5'
+    # Every 5 minutes, Monday to Friday (UTC)
+    - cron: '*/5 * * * 1-5'
   workflow_dispatch: {}
 
 permissions:

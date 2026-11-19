@@ -1,7 +1,7 @@
 // Pulls the open tasks of the Noma project from Asana and writes data.json.
 // Needs ASANA_TOKEN (a Personal Access Token) in the environment.
 // Run locally:  ASANA_TOKEN=xxx node scripts/fetch-asana.mjs
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 const PROJECT_ID = process.env.ASANA_PROJECT_ID || '1214040151426564';
 const TOKEN = process.env.ASANA_TOKEN;
@@ -35,5 +35,12 @@ const tasks = raw.map((t) => ({
   order: (() => { const f = (t.custom_fields || []).find((x) => x.name === 'Order'); return f && f.number_value != null ? Number(f.number_value) : null; })()
 }));
 
-await writeFile(process.env.OUTPUT || 'noma/data.json', JSON.stringify({ generated_at: new Date().toISOString(), tasks }, null, 2) + '\n');
-console.log(`Wrote ${tasks.length} tasks`);
+const OUT = process.env.OUTPUT || 'noma/data.json';
+let previous = null;
+try { previous = JSON.parse(await readFile(OUT, 'utf8')).tasks; } catch (e) { /* first run */ }
+if (previous && JSON.stringify(previous) === JSON.stringify(tasks)) {
+  console.log(`No changes in ${tasks.length} tasks, nothing to publish`);
+} else {
+  await writeFile(OUT, JSON.stringify({ generated_at: new Date().toISOString(), tasks }, null, 2) + '\n');
+  console.log(`Wrote ${tasks.length} tasks`);
+}

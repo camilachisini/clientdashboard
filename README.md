@@ -1,6 +1,6 @@
 # Noma Design Tasks dashboard
 
-A static page (`noma/index.html`) that shows the Noma project's open tasks for the next 5 working days. It reads `noma/data.json`. A GitHub Action refreshes `noma/data.json` from Asana every 30 minutes on weekdays, so the page stays up to date without anyone exposing an Asana login.
+A static page (`noma/index.html`) that shows the Noma project's open tasks for the next 5 working days. It reads `noma/data.json`. A GitHub Action refreshes `noma/data.json` from Asana every 5 minutes on weekdays (it only publishes when a task changed), so the page stays up to date without anyone exposing an Asana login.
 
 ## Set it up (about 10 minutes)
 
@@ -33,4 +33,4 @@ Open the page and click **Download image** (bottom right). You get a 1920 × 108
 4. Open the worker's **Settings → Variables and Secrets → Add**. Type: *Secret*, name: `ASANA_TOKEN`, value: your Asana token. Save.
 5. Copy the worker's address (like `https://noma-dashboard.yourname.workers.dev`) and set it as `LIVE_URL` at the top of `noma/app.js`.
 
-If the worker is down, the page falls back to `data.json`, which the GitHub Action still refreshes every 30 minutes.
+If the worker is down, the page falls back to `data.json`, which the GitHub Action still refreshes every 5 minutes.
