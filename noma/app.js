@@ -67,8 +67,12 @@ function plan(tasks) {
   const dates = windowDates();
   const days = new Map(dates.map((d) => [d, []]));
   const rank = (t) => (t.order == null ? 1e9 : t.order);
+  // Only work the studio still has to do; anything past due lands on today.
+  const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
   tasks
-    .filter((t) => t.due && days.has(t.due) && t.status !== 'On Hold')
+    .filter((t) => t.due && ON_BOARD.includes(t.status))
+    .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
+    .filter((t) => days.has(t.due))
     .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
     .sort((a, b) => rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
     .forEach((t) => {
