@@ -112,7 +112,7 @@ function render() {
     day.appendChild(cap);
 
     const track = el('div', 'nm-track');
-    track.style.gridTemplateColumns = `repeat(${CAP}, minmax(0, 1fr)) var(--more-w)`;
+    track.style.gridTemplateColumns = `repeat(${CAP}, minmax(0, 1fr))`;
     let start = 1;
     d.fit.forEach((t) => {
       const card = makeCard(t);
@@ -124,19 +124,26 @@ function render() {
       if (k === start && !d.extra.length) slot.appendChild(el('span', null, CAP - d.used === 1 ? '1 free slot' : `${CAP - d.used} free slots`));
       track.appendChild(slot);
     }
+    const lane = el('div', 'nm-lane');
+    lane.appendChild(track);
     if (d.extra.length) {
       const hours = d.extra.reduce((a, t) => a + t.slots, 0);
-      const more = el('div', 'nm-more');
-      more.append(el('span', 'nm-more-plus', '+'), el('span', 'nm-more-n', `${hours}h`), el('span', 'nm-more-t', d.extra.length === 1 ? '1 task' : `${d.extra.length} tasks`));
-      more.style.gridColumn = String(CAP + 1);
-      track.appendChild(more);
+      const over = el('div', 'nm-over');
+      over.appendChild(el('span', 'nm-over-label', `+${hours}h over capacity`));
+      d.extra.forEach((t) => {
+        const chip = el('span', 'nm-over-task');
+        chip.append(el('b', 'nm-over-size', t.size), el('span', 'nm-over-name', t.name));
+        if (t.owner || t.designer) chip.appendChild(el('em', null, t.owner || t.designer));
+        over.appendChild(chip);
+      });
+      lane.appendChild(over);
     }
-    row.append(day, track);
+    row.append(day, lane);
     board.appendChild(row);
   });
 
   const updated = state.updated ? new Date(state.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
-  document.getElementById('foot').textContent = `Updated ${updated} · Next 5 working days · 1 slot = 1 hour · Red + = work that doesn't fit in the day`;
+  document.getElementById('foot').textContent = `Updated ${updated} · Next 5 working days · 1 slot = 1 hour · red = tasks that don't fit in the day`;
 }
 
 // ---------- download ----------
