@@ -48,6 +48,15 @@ async function refresh(fresh) {
     const d = await getData(fresh);
     state.tasks = d.tasks || [];
     state.updated = d.generated_at;
+    // The last successful Asana check (even with no changes) comes from GitHub's public run list,
+    // so the time moves on every check without publishing a new file.
+    try {
+      const r = await fetch('https://api.github.com/repos/camilachisini/clientdashboard/actions/workflows/update-data.yml/runs?status=success&per_page=1', { cache: 'no-store' });
+      if (r.ok) {
+        const run = ((await r.json()).workflow_runs || [])[0];
+        if (run && (!state.updated || run.updated_at > state.updated)) state.updated = run.updated_at;
+      }
+    } catch (e) { /* keep the data time */ }
     state.live = !!d.live;
     render();
     return true;
