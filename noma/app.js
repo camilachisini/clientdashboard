@@ -5,6 +5,7 @@ const CAP = 8;
 const SLOTS = { T: 1, S: 2, M: 4, L: 8, XL: 12 };
 const ALIAS = { TINY: 'T', SMALL: 'S', MEDIUM: 'M', LARGE: 'L', EXTRA: 'XL', XLARGE: 'XL' };
 const MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -75,6 +76,7 @@ function plan(tasks) {
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
   tasks
     .filter((t) => (!t.completed && t.due && ON_BOARD.includes(t.status)) || (isDelivered(t) && (t.due === dates[0] || deliveredOn(t) === dates[0])))
+    .map((t) => ({ ...t, clientDue: t.due }))
     .map((t) => (isDelivered(t) ? { ...t, due: dates[0] } : t))
     .map((t) => ({ ...t, done: isDelivered(t) }))
     .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
@@ -126,7 +128,10 @@ function makeCard(t) {
   if (t.part < t.parts) card.classList.add('cont-next');
   if (t.part > 1) card.classList.add('cont-prev');
   const top = el('div', 'nm-card-top');
-  top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size));
+  const head = el('div', 'nm-card-head');
+  head.appendChild(el('div', 'nm-card-name', t.name));
+  if (t.clientDue) head.appendChild(el('div', 'nm-card-due', `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}`));
+  top.append(head, el('span', 'nm-size', t.size));
   const bottom = el('div', 'nm-card-bottom');
   bottom.appendChild(el('span', 'nm-designer', t.owner || ''));
   if (t.done) { card.classList.add('is-done'); bottom.appendChild(el('span', 'nm-done', '✓ Delivered')); }
