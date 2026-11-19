@@ -130,15 +130,18 @@ a.nm-card.dragging { opacity: .35; }
 .nm-btn { font-family: inherit; font-size: 14px; font-weight: 700; background: var(--teal); color: var(--cream); border: 0; border-radius: 12px; padding: 12px 20px; cursor: pointer; }
 .nm-btn:disabled { opacity: .5; }
 .nm-err { flex-basis: 100%; margin: 0; font-size: 13px; color: #B3261E; min-height: 1em; }
-.nm-download { position: fixed; right: 20px; bottom: 16px; z-index: 5; font-family: 'Raleway', system-ui, sans-serif; font-size: 14px; font-weight: 700; background: #004854; color: #F7F9F2; border: 0; border-radius: 100px; padding: 10px 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(0, 0, 0, .15); }
+.nm-download { font-family: 'Raleway', system-ui, sans-serif; font-size: 14px; font-weight: 700; background: #004854; color: #F7F9F2; border: 0; border-radius: 100px; padding: 10px 20px; cursor: pointer; }
 .nm-download:disabled { opacity: .6; }
 .nm-more { cursor: default; }
 .render-mode .nm-actions { display: none; }
-body:not(.render-mode) .nm { padding-bottom: 64px; }
-.nm-actions { position: fixed; right: 20px; bottom: 16px; z-index: 5; display: flex; gap: 10px; }
+.render-mode .nm { height: 1080px; min-height: 0; }
+.render-mode .nm-board { flex: 1 1 0; min-height: 0; }
+
+.nm-head-right { display: flex; align-items: center; gap: 24px; }
+.nm-actions { display: flex; flex-direction: column; gap: 8px; }
 .nm-actions .nm-download { position: static; }
-.nm-download.nm-secondary { background: #F7F9F2; color: #004854; box-shadow: inset 0 0 0 2px #004854, 0 6px 20px rgba(0,0,0,.12); }
-.nm-lane { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.nm-download.nm-secondary { background: #F7F9F2; color: #004854; box-shadow: inset 0 0 0 2px #004854; }
+.nm-lane { display: flex; flex-direction: column; gap: 8px; min-height: 0; }
 .nm-lane .nm-track { flex: 1; min-height: 0; }
 .nm-over { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; background: #FBE3E1; border: 1.5px solid #B3261E; border-radius: 12px; padding: 6px 10px; color: #8F1E18; font-size: 13px; }
 .nm-over-label { font-weight: 800; color: #B3261E; text-transform: uppercase; letter-spacing: .06em; font-size: 11.5px; margin-right: 4px; }
@@ -148,19 +151,21 @@ body:not(.render-mode) .nm { padding-bottom: 64px; }
 .nm-over-task em { font-style: normal; opacity: .7; white-space: nowrap; flex: none; }
 .nm, .nm * { font-variant-numeric: lining-nums proportional-nums; font-feature-settings: "lnum" 1, "pnum" 1; }
 /* Fit everything in one screen */
-html, body { height: 100%; overflow: hidden; }
-.nm-wrap { height: 100vh; }
-.nm { height: 100vh; min-height: 0; padding: 2.6vh 40px 1.6vh; display: flex; flex-direction: column; }
+html, body { min-height: 100%; }
+.nm-wrap { min-height: 100vh; }
+.nm { min-height: 100vh; height: auto; padding: 2vh 40px 1vh; display: flex; flex-direction: column; }
 .nm-head { margin: 0 0 1.4vh; align-items: center; }
 .nm-title { font-size: clamp(34px, 5vh, 56px); margin: 0 0 0.6vh; }
 .nm-sub { font-size: clamp(16px, 2.2vh, 22px); }
 .nm-stat { height: clamp(64px, 9vh, 96px); width: 170px; padding: 1vh 18px; }
 .nm-stat-label { font-size: 12px; }
 .nm-stat-value { font-size: clamp(30px, 5vh, 48px); }
-.nm-legend { margin: 0 0 1.4vh; font-size: 13px; gap: 16px; }
-.nm-board { flex: 1; min-height: 0; gap: 1.2vh; }
+.nm-legend { margin: 0 0 1vh; font-size: 13px; gap: 16px; }
+.nm-board { flex: 1; min-height: 0; gap: 10px; }
 .nm-row { flex: 1; min-height: 0; grid-template-rows: 100%; gap: 14px; grid-template-columns: 190px 1fr; }
-.nm-day { height: auto; padding: 0 20px; border-radius: 14px; }
+.nm-day { height: auto; padding: 12px 22px; border-radius: 14px; }
+.nm-row { min-height: 88px; }
+.nm-board { flex: 1 0 auto; }
 .nm-day-name, .nm-row.is-today .nm-day-name { font-size: clamp(16px, 2.4vh, 24px); }
 .nm-day-date { font-size: clamp(14px, 2vh, 20px); }
 .nm-cap { margin-top: 0.3vh; font-size: 12px; white-space: nowrap; gap: 6px; }
@@ -186,10 +191,13 @@ html, body { height: 100%; overflow: hidden; }
       <h1 class="nm-title">Noma Design Tasks</h1>
       <p class="nm-sub">Max plan</p>
     </div>
+    <div class="nm-head-right">
+    <div class="nm-actions"><button type="button" class="nm-download nm-secondary" id="update">Update now</button><button type="button" class="nm-download" id="download">Download image</button></div>
     <div class="nm-stats">
       <div class="nm-stat"><span class="nm-stat-label">To-do</span><span class="nm-stat-value" id="t-todo">—</span></div>
       <div class="nm-stat"><span class="nm-stat-label">Active</span><span class="nm-stat-value" id="t-active">—</span></div>
       <div class="nm-stat"><span class="nm-stat-label">Under review</span><span class="nm-stat-value" id="t-review">—</span></div>
+    </div>
     </div>
   </div>
 
@@ -208,8 +216,8 @@ html, body { height: 100%; overflow: hidden; }
 </div>
 </div>
 
-<div class="nm-actions"><button type="button" class="nm-download nm-secondary" id="update">Update now</button><button type="button" class="nm-download" id="download">Download image</button></div>
+
 <script src="html-to-image.js?v=2"></script>
-<script src="app.js?v=2026-11-19-7"></script>
+<script src="app.js?v=2026-11-19-9"></script>
 </body>
 </html>

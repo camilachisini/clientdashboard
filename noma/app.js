@@ -161,6 +161,7 @@ function render() {
       over.style.flex = String(line);
       lane.appendChild(over);
       row.style.flex = String(1 + line);
+      row.style.minHeight = `${88 + line * 58}px`;
     }
     row.append(day, lane);
     board.appendChild(row);
