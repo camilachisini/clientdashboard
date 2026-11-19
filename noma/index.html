@@ -21,7 +21,7 @@ body { margin: 0; background: #F7F9F2; }
 .nm-stats { display: flex; gap: 20px; }
 .nm-stat { width: 200px; height: 120px; box-sizing: border-box; border: 2px solid var(--teal); border-radius: 18px; padding: 18px 24px 14px; display: flex; flex-direction: column; justify-content: space-between; }
 .nm-stat-label { font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin: 0; }
-.nm-stat-value { font-size: 56px; font-weight: 300; line-height: 1; margin: 0; font-variant-numeric: tabular-nums; }
+.nm-stat-value { font-size: 56px; font-weight: 300; line-height: 1; margin: 0; font-variant-numeric: lining-nums proportional-nums; }
 .nm-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; font-size: 14px; font-weight: 500; margin: 0 0 18px; }
 .nm-legend span { display: inline-flex; align-items: center; gap: 8px; }
 .nm-legend i { font-style: normal; font-weight: 700; font-size: 13px; padding: 2px 8px; border-radius: 6px; }
@@ -34,7 +34,7 @@ body { margin: 0; background: #F7F9F2; }
 .nm-row.is-today .nm-day-name { font-size: 30px; }
 .nm-day-date { font-size: 22px; font-weight: 400; line-height: 1.2; text-transform: uppercase; }
 .nm-cap { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; margin-top: 4px; }
-.nm-cap-n { opacity: .75; font-variant-numeric: tabular-nums; }
+.nm-cap-n { opacity: .75; font-variant-numeric: lining-nums proportional-nums; }
 .nm-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 2px 8px; border-radius: 100px; background: var(--teal); color: var(--cream); }
 .nm-row.is-today .nm-badge { background: var(--cream); color: var(--teal); }
 .nm-badge.is-over, .nm-row.is-today .nm-badge.is-over { background: #E5483E; color: #fff; }
@@ -146,6 +146,7 @@ body:not(.render-mode) .nm { padding-bottom: 64px; }
 .nm-over-size { flex: none; background: #B3261E; color: #fff; font-size: 11px; font-weight: 800; border-radius: 100px; min-width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; padding: 0 5px; }
 .nm-over-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .nm-over-task em { font-style: normal; opacity: .7; white-space: nowrap; flex: none; }
+.nm, .nm * { font-variant-numeric: lining-nums proportional-nums; font-feature-settings: "lnum" 1, "pnum" 1; }
 /* Fit everything in one screen */
 html, body { height: 100%; overflow: hidden; }
 .nm-wrap { height: 100vh; }
