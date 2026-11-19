@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Noma Design Tasks</title>
+<style>
+body { margin: 0; background: #F7F9F2; }
+:root { --font-anthropic-sans: system-ui, sans-serif; }
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,400&display=swap');
+.nm { --teal: #004854; --cream: #F7F9F2; --line: rgba(0, 72, 84, 0.45);
+  --t: #DBF3ED; --s: #E5EAF8; --m: #F8E5F2; --l: #FBE8D6; --xl: #FBDBD6;
+  font-family: 'Raleway', var(--font-anthropic-sans); color: var(--teal); background: var(--cream);
+  padding: 56px 64px 48px; border-radius: 12px; min-width: 1180px; }
+.nm-wrap { overflow-x: auto; }
+.nm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin: 0 0 28px; }
+.nm-title { font-family: 'Neco', 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 400; font-size: 64px; line-height: 1; margin: 0 0 14px; color: var(--teal); }
+.nm-sub { font-size: 24px; font-weight: 500; margin: 0; }
+.nm-stats { display: flex; gap: 20px; }
+.nm-stat { width: 200px; height: 120px; box-sizing: border-box; border: 2px solid var(--teal); border-radius: 18px; padding: 18px 24px 14px; display: flex; flex-direction: column; justify-content: space-between; }
+.nm-stat-label { font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .7; margin: 0; }
+.nm-stat-value { font-size: 56px; font-weight: 300; line-height: 1; margin: 0; font-variant-numeric: tabular-nums; }
+.nm-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; font-size: 14px; font-weight: 500; margin: 0 0 18px; }
+.nm-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.nm-legend i { font-style: normal; font-weight: 700; font-size: 13px; padding: 2px 8px; border-radius: 6px; }
+.nm-legend .nm-unit { opacity: .6; }
+.nm-board { display: flex; flex-direction: column; gap: 16px; }
+.nm-row { display: grid; grid-template-columns: 221px 1fr; gap: 20px; }
+.nm-day { box-sizing: border-box; height: 120px; border: 2px solid var(--teal); border-radius: 18px; padding: 0 26px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+.nm-row.is-today .nm-day { background: var(--teal); color: var(--cream); }
+.nm-day-name { font-size: 24px; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+.nm-row.is-today .nm-day-name { font-size: 30px; }
+.nm-day-date { font-size: 22px; font-weight: 400; line-height: 1.2; text-transform: uppercase; }
+.nm-cap { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; margin-top: 4px; }
+.nm-cap-n { opacity: .75; font-variant-numeric: tabular-nums; }
+.nm-badge { font-size: 11px; font-weight: 700; letter-spacing: .08em; padding: 2px 8px; border-radius: 100px; background: var(--teal); color: var(--cream); }
+.nm-row.is-today .nm-badge { background: var(--cream); color: var(--teal); }
+.nm-badge.is-over { background: #B3261E; color: #fff; }
+.nm-track { display: grid; gap: 20px; grid-auto-rows: 120px; }
+.nm-slot { grid-row: 1; box-sizing: border-box; border: 1px dashed var(--teal); border-radius: 18px; opacity: .55; padding: 14px; font-size: 16px; font-weight: 500; }
+.nm-slot span { opacity: .7; }
+.nm-slot.is-extra { border-color: #B3261E; opacity: .8; }
+.nm-card { grid-row: 1; position: relative; box-sizing: border-box; border-radius: 18px; padding: 13px 13px 12px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; overflow: hidden; }
+.nm-card.sz-t { background: var(--t); } .nm-card.sz-s { background: var(--s); } .nm-card.sz-m { background: var(--m); }
+.nm-card.sz-l { background: var(--l); } .nm-card.sz-xl { background: var(--xl); }
+.nm-card.cont-next { border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+.nm-card.cont-prev { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.nm-card.is-over { box-shadow: inset 0 0 0 2px #B3261E; }
+.nm-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.nm-card-name { font-size: 16px; font-weight: 700; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-width: 0; }
+.nm-size { flex: none; min-width: 31px; height: 31px; box-sizing: border-box; padding: 0 6px; border-radius: 5px; background: var(--teal); color: var(--cream); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.nm-card-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 8px; }
+.nm-designer { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.nm-part { flex: none; font-size: 22px; font-weight: 700; line-height: 1; white-space: nowrap; }
+.nm-week { display: flex; align-items: center; gap: 24px; font-size: 16px; font-weight: 700; letter-spacing: .4em; text-transform: uppercase; margin: 4px 0; }
+.nm-week::before, .nm-week::after { content: ''; flex: 1; height: 1px; background: var(--teal); opacity: .6; }
+.nm-designer em { font-style: normal; opacity: .6; }
+.nm-foot { font-size: 13px; font-weight: 500; opacity: .65; margin: 28px 0 0; line-height: 1.5; }
+.nm-msg { font-size: 16px; opacity: .7; padding: 24px 0; }
+
+.nm { border-radius: 0; min-height: 100vh; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div class="nm-wrap">
+<div class="nm" id="noma-dashboard">
+  <div class="nm-head">
+    <div>
+      <h1 class="nm-title">Noma Design Tasks</h1>
+      <p class="nm-sub">Max plan</p>
+    </div>
+    <div class="nm-stats">
+      <div class="nm-stat"><p class="nm-stat-label">To-do</p><p class="nm-stat-value" id="t-todo">—</p></div>
+      <div class="nm-stat"><p class="nm-stat-label">Active</p><p class="nm-stat-value" id="t-active">—</p></div>
+      <div class="nm-stat"><p class="nm-stat-label">Under review</p><p class="nm-stat-value" id="t-review">—</p></div>
+    </div>
+  </div>
+
+  <div class="nm-legend" aria-label="Task sizes">
+    <span><i style="background:var(--t)">T</i>Tiny · under 1h</span>
+    <span><i style="background:var(--s)">S</i>Small · 2h</span>
+    <span><i style="background:var(--m)">M</i>Medium · 4h</span>
+    <span><i style="background:var(--l)">L</i>Large · 8h, full day</span>
+    <span><i style="background:var(--xl)">XL</i>Extra large · 12h, splits across days</span>
+    <span class="nm-unit">1 slot = 1 hour · 8 slots per day</span>
+  </div>
+
+  <div class="nm-board" id="board"><div class="nm-msg">Loading tasks…</div></div>
+
+  <p class="nm-foot" id="foot"></p>
+</div>
+</div>
+
+<script>
+const CAP = 8;
+const SLOTS = { T: 1, S: 2, M: 4, L: 8, XL: 12 };
+const ALIAS = { TINY: 'T', SMALL: 'S', MEDIUM: 'M', LARGE: 'L', EXTRA: 'XL', XLARGE: 'XL' };
+const MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const pad = (n) => String(n).padStart(2, '0');
+const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const label = (s) => `${MONTHS[Number(s.slice(5, 7)) - 1]} ${Number(s.slice(8, 10))}`;
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const count = (tasks, list) => tasks.filter((t) => list.includes(t.status)).length;
+
+function sizeOf(t) {
+  let g = String(t.size || '').trim().split(/[\s·(\-]/)[0].toUpperCase();
+  if (ALIAS[g]) g = ALIAS[g];
+  return SLOTS[g] ? { size: g, known: true } : { size: 'S', known: false };
+}
+
+function plan(tasks) {
+  const dates = [];
+  const d = new Date(); d.setHours(0, 0, 0, 0);
+  while (dates.length < 5) { if (d.getDay() % 6) dates.push(iso(d)); d.setDate(d.getDate() + 1); }
+  const inWindow = new Set(dates);
+  const used = new Map(dates.map((x) => [x, 0]));
+  const list = tasks
+    .filter((t) => t.due && inWindow.has(t.due) && t.status !== 'On Hold')
+    .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
+    .sort((a, b) => a.due.localeCompare(b.due) || b.total - a.total || a.id.localeCompare(b.id));
+  const parts = [];
+  list.forEach((t) => {
+    let left = t.total; const mine = [];
+    for (let i = dates.indexOf(t.due); i >= 0 && left > 0; i--) {
+      const free = CAP - used.get(dates[i]); if (free <= 0) continue;
+      const take = Math.min(free, left);
+      used.set(dates[i], used.get(dates[i]) + take);
+      mine.push({ date: dates[i], slots: take, over: false }); left -= take;
+    }
+    if (left > 0) {
+      used.set(t.due, used.get(t.due) + left);
+      const same = mine.find((p) => p.date === t.due);
+      if (same) { same.slots += left; same.over = true; } else mine.push({ date: t.due, slots: left, over: true });
+    }
+    mine.sort((a, b) => a.date.localeCompare(b.date));
+    mine.forEach((p, i) => parts.push({ ...t, ...p, part: i + 1, parts: mine.length }));
+  });
+  return { dates, used, parts };
+}
+
+function render(data) {
+  const tasks = data.tasks || [];
+  document.getElementById('t-todo').textContent = count(tasks, ['To-do', 'Auto-created']);
+  document.getElementById('t-active').textContent = count(tasks, ['In progress', 'Internal review', 'Shared with client', 'Pending Approval']);
+  document.getElementById('t-review').textContent = count(tasks, ['Shared with client', 'Pending Approval']);
+
+  const { dates, used, parts } = plan(tasks);
+  const today = iso(new Date());
+  const board = document.getElementById('board');
+  board.replaceChildren();
+  dates.forEach((date, i) => {
+    const wd = new Date(date + 'T12:00:00').getDay();
+    if (i > 0 && wd === 1) board.appendChild(el('div', 'nm-week', 'Next week'));
+    const row = el('div', 'nm-row' + (date === today ? ' is-today' : ''));
+    const n = used.get(date);
+    const free = CAP - n;
+
+    const day = el('div', 'nm-day');
+    day.append(el('span', 'nm-day-name', date === today ? 'Today' : DAYS[wd]), el('span', 'nm-day-date', label(date)));
+    const cap = el('div', 'nm-cap');
+    cap.appendChild(el('span', 'nm-cap-n', `${n} / ${CAP} slots${free > 0 ? ` · ${free} free` : ''}`));
+    if (n === CAP) cap.appendChild(el('span', 'nm-badge', 'FULL'));
+    if (n > CAP) cap.appendChild(el('span', 'nm-badge is-over', `+${n - CAP}h OVER`));
+    day.appendChild(cap);
+
+    const track = el('div', 'nm-track');
+    track.style.gridTemplateColumns = `repeat(${Math.max(CAP, n)}, minmax(0, 1fr))`;
+    let start = 1;
+    parts.filter((p) => p.date === date)
+      .sort((a, b) => a.over - b.over || (b.part > 1) - (a.part > 1) || b.slots - a.slots || a.name.localeCompare(b.name))
+      .forEach((t) => {
+        const card = el('div', `nm-card sz-${t.size.toLowerCase()}`);
+        card.style.gridColumn = `${start} / span ${t.slots}`; start += t.slots;
+        if (t.part < t.parts) card.classList.add('cont-next');
+        if (t.part > 1) card.classList.add('cont-prev');
+        if (t.over) card.classList.add('is-over');
+        card.title = `${t.name}\nOwner: ${t.owner || '—'}\nDesigner: ${t.designer}\nStatus: ${t.status}\nDue: ${label(t.due)}`;
+        const top = el('div', 'nm-card-top');
+        top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size + (t.known ? '' : '*')));
+        const bottom = el('div', 'nm-card-bottom');
+        const who = el('span', 'nm-designer', t.owner || t.designer);
+        if (t.owner) { const em = el('em', null, ` · ${t.designer.split(' ')[0]}`); who.appendChild(em); }
+        bottom.appendChild(who);
+        if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
+        card.append(top, bottom);
+        track.appendChild(card);
+      });
+    for (let k = start; k <= CAP; k++) {
+      const slot = el('div', 'nm-slot'); slot.style.gridColumn = String(k);
+      if (k === start) slot.appendChild(el('span', null, free === 1 ? '1 free slot' : `${free} free slots`));
+      track.appendChild(slot);
+    }
+    row.append(day, track);
+    board.appendChild(row);
+  });
+
+  const updated = data.generated_at ? new Date(data.generated_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : '—';
+  const hold = count(tasks, ['On Hold']);
+  document.getElementById('foot').textContent =
+    `Updated from Asana ${updated}. Next 5 working days. Tasks are placed earliest deadline first: each fills free slots on its due date, then the days before it; tasks that don't fit in one day split across days (1/2 →, ← 2/2). Anything that still doesn't fit stays on its due date, outlined in red. On hold tasks are left out (${hold} now). * no size in Asana yet, counted as Small.`;
+}
+
+fetch('data.json?t=' + Date.now())
+  .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(render)
+  .catch(() => { document.getElementById('board').replaceChildren(el('div', 'nm-msg', 'Could not load data.json')); });
+setInterval(() => fetch('data.json?t=' + Date.now()).then((r) => r.json()).then(render).catch(() => {}), 5 * 60 * 1000);
+</script>
+</body>
+</html>

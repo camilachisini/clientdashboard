@@ -32,5 +32,5 @@ const tasks = raw.map((t) => ({
   size: cf(t, 'Task size')
 }));
 
-await writeFile('data.json', JSON.stringify({ generated_at: new Date().toISOString(), tasks }, null, 2) + '\n');
-console.log(`Wrote ${tasks.length} tasks to data.json`);
+await writeFile(process.env.OUTPUT || 'noma/data.json', JSON.stringify({ generated_at: new Date().toISOString(), tasks }, null, 2) + '\n');
+console.log(`Wrote ${tasks.length} tasks`);

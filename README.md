@@ -1,6 +1,6 @@
 # Noma Design Tasks dashboard
 
-A static page (`index.html`) that shows the Noma project's open tasks for the next 5 working days. It reads `data.json`. A GitHub Action refreshes `data.json` from Asana every 30 minutes on weekdays, so the page stays up to date without anyone exposing an Asana login.
+A static page (`noma/index.html`) that shows the Noma project's open tasks for the next 5 working days. It reads `noma/data.json`. A GitHub Action refreshes `noma/data.json` from Asana every 30 minutes on weekdays, so the page stays up to date without anyone exposing an Asana login.
 
 ## Set it up (about 10 minutes)
 
@@ -10,7 +10,7 @@ A static page (`index.html`) that shows the Noma project's open tasks for the ne
 4. **Turn on GitHub Pages.** Open *Settings → Pages*, set *Source* to *Deploy from a branch*, choose `main` and `/ (root)`, then save.
 5. **Run the first update.** Open the *Actions* tab, choose *Update dashboard data*, then *Run workflow*.
 
-After a minute or two the dashboard will be at `https://<your-username>.github.io/noma-dashboard/`.
+After a minute or two the dashboard will be at `https://camilachisini.github.io/clientdashboard/noma/`.
 
 ## Notes
 
