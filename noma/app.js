@@ -167,7 +167,7 @@ function render() {
   });
 
   const updated = state.updated ? new Date(state.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
-  document.getElementById('foot').textContent = `${state.live ? 'Live from Asana' : 'Updated'} ${updated} · Next 5 working days · 1 slot = 1 hour · red ⚠ = tasks that don't fit in the 8 slots of the day`;
+  document.getElementById('foot').textContent = `Updated ${updated}`;
 }
 
 // ---------- download ----------
