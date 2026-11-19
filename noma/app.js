@@ -12,7 +12,9 @@ const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate(
 const label = (s) => `${MONTHS[Number(s.slice(5, 7)) - 1]} ${Number(s.slice(8, 10))}`;
 const weekday = (s) => new Date(s + 'T12:00:00').getDay();
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-const count = (tasks, list) => tasks.filter((t) => list.includes(t.status)).length;
+const count = (tasks, list) => tasks.filter((t) => !t.completed && list.includes(t.status)).length;
+const DELIVERED = ['Shared with client', 'Pending Approval', 'Complete'];
+const isDelivered = (t) => t.completed || DELIVERED.includes(t.status);
 
 const state = { tasks: [], updated: null, live: false };
 
@@ -68,13 +70,15 @@ function plan(tasks) {
   const days = new Map(dates.map((d) => [d, []]));
   const rank = (t) => (t.order == null ? 1e9 : t.order);
   // Only work the studio still has to do; anything past due lands on today.
+  // Delivered tasks due today stay on today, faded, so the day keeps its history.
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
   tasks
-    .filter((t) => t.due && ON_BOARD.includes(t.status))
+    .filter((t) => t.due && ((!t.completed && ON_BOARD.includes(t.status)) || (isDelivered(t) && t.due === dates[0])))
+    .map((t) => ({ ...t, done: isDelivered(t) }))
     .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
     .filter((t) => days.has(t.due))
     .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
-    .sort((a, b) => rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
+    .sort((a, b) => b.done - a.done || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
     .forEach((t) => {
       const i = dates.indexOf(t.due);
       if (t.total > CAP && i > 0) {
@@ -101,6 +105,7 @@ function makeCard(t) {
   top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size));
   const bottom = el('div', 'nm-card-bottom');
   bottom.appendChild(el('span', 'nm-designer', t.owner || ''));
+  if (t.done) { card.classList.add('is-done'); bottom.appendChild(el('span', 'nm-done', '✓ Delivered')); }
   if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
   card.append(top, bottom);
   return card;

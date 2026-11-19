@@ -7,8 +7,10 @@ const PROJECT_ID = process.env.ASANA_PROJECT_ID || '1214040151426564';
 const TOKEN = process.env.ASANA_TOKEN;
 if (!TOKEN) { console.error('Missing ASANA_TOKEN'); process.exit(1); }
 
-const fields = 'name,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
-let url = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=2099-01-01T00:00:00Z&limit=100&opt_fields=${encodeURIComponent(fields)}`;
+const fields = 'name,completed,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
+// Open tasks plus anything completed in the last 2 days (so today's delivered work stays visible).
+const since = new Date(Date.now() - 2 * 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
+let url = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=${since}&limit=100&opt_fields=${encodeURIComponent(fields)}`;
 const raw = [];
 while (url) {
   const res = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
@@ -30,6 +32,7 @@ const tasks = raw.map((t) => ({
   // Always the Client Due Date; the internal due date only if the client date is empty.
   due: day(cf(t, 'Client Due Date')) || t.due_on,
   status: cf(t, 'Status') || 'No status',
+  completed: !!t.completed,
   size: cf(t, 'Task size'),
   client_link: cf(t, 'Client task link'),
   asana_url: t.permalink_url || null,

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T19:52:22.191Z",
+  "generated_at": "2026-11-19T20:01:29.846Z",
   "tasks": [
     {
       "id": "1220704943640841",
@@ -8,9 +8,10 @@
       "owner": "Matt Madden",
       "due": "2026-11-23",
       "status": "To-do",
+      "completed": false,
       "size": "Extra Large (8-12 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704943640841",
+      "asana_url": null,
       "order": null
     },
     {
@@ -20,9 +21,10 @@
       "owner": "Adeline Jaulin",
       "due": null,
       "status": "To-do",
+      "completed": false,
       "size": "Medium (2-4 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704649595084",
+      "asana_url": null,
       "order": null
     },
     {
@@ -32,9 +34,10 @@
       "owner": "Heather Pearse",
       "due": "2026-11-27",
       "status": "To-do",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220700012813915",
+      "asana_url": null,
       "order": null
     },
     {
@@ -44,9 +47,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-19",
       "status": "Shared with client",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821123419",
+      "asana_url": null,
       "order": null
     },
     {
@@ -56,9 +60,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-20",
       "status": "In progress",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821310419",
+      "asana_url": null,
       "order": null
     },
     {
@@ -68,9 +73,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-20",
       "status": "To-do",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691843009149",
+      "asana_url": null,
       "order": null
     },
     {
@@ -80,9 +86,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-23",
       "status": "To-do",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821322907",
+      "asana_url": null,
       "order": null
     },
     {
@@ -92,9 +99,10 @@
       "owner": "Pia Rodil",
       "due": "2026-11-23",
       "status": "To-do",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220703281811704",
+      "asana_url": null,
       "order": null
     },
     {
@@ -104,9 +112,10 @@
       "owner": "Adeline Jaulin",
       "due": "2026-12-30",
       "status": "To-do",
+      "completed": false,
       "size": "Medium (2-4 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220617014456727",
+      "asana_url": null,
       "order": null
     },
     {
@@ -116,9 +125,10 @@
       "owner": null,
       "due": null,
       "status": "To-do",
+      "completed": false,
       "size": "Tiny (Less than 1 hour)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220592562845960",
+      "asana_url": null,
       "order": null
     },
     {
@@ -128,9 +138,10 @@
       "owner": null,
       "due": "2026-11-24",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220587664656664",
+      "asana_url": null,
       "order": null
     },
     {
@@ -140,9 +151,10 @@
       "owner": null,
       "due": "2026-11-18",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220581878988333",
+      "asana_url": null,
       "order": null
     },
     {
@@ -152,9 +164,23 @@
       "owner": "Adeline Jaulin",
       "due": "2026-11-23",
       "status": "To-do",
+      "completed": false,
       "size": "Medium (2-4 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681845826",
+      "asana_url": null,
+      "order": null
+    },
+    {
+      "id": "1220579681622052",
+      "name": "2026-12 UKI FS-ISAC Social cards + post cards + game sign",
+      "designer": "Juliana Dimon",
+      "owner": null,
+      "due": "2026-11-20",
+      "status": "Complete",
+      "completed": true,
+      "size": "Medium (2-4 hours)",
+      "client_link": null,
+      "asana_url": null,
       "order": null
     },
     {
@@ -164,9 +190,10 @@
       "owner": "Jordyn Jones",
       "due": "2026-11-23",
       "status": "To-do",
+      "completed": false,
       "size": "Medium (2-4 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220577044636135",
+      "asana_url": null,
       "order": null
     },
     {
@@ -176,9 +203,23 @@
       "owner": "Ashley Eining",
       "due": "2026-11-20",
       "status": "To-do",
+      "completed": false,
       "size": "Medium (2-4 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220439790267829",
+      "asana_url": null,
+      "order": null
+    },
+    {
+      "id": "1220450510803298",
+      "name": "Update: LinkedIn Live The AI Security Wrap Banners",
+      "designer": "Denise Mayer",
+      "owner": null,
+      "due": "2026-11-25",
+      "status": "Complete",
+      "completed": true,
+      "size": null,
+      "client_link": null,
+      "asana_url": null,
       "order": null
     },
     {
@@ -188,9 +229,10 @@
       "owner": null,
       "due": "2026-11-16",
       "status": "On Hold",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220428380841606",
+      "asana_url": null,
       "order": null
     },
     {
@@ -200,9 +242,10 @@
       "owner": null,
       "due": "2026-11-17",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220378703709156",
+      "asana_url": null,
       "order": null
     },
     {
@@ -212,9 +255,23 @@
       "owner": null,
       "due": "2026-11-20",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220315936332209",
+      "asana_url": null,
+      "order": null
+    },
+    {
+      "id": "1220313216599891",
+      "name": "Promotional Images [CTA: Register + Watch Now]",
+      "designer": "Juliana Dimon",
+      "owner": null,
+      "due": "2026-11-10",
+      "status": "Complete",
+      "completed": true,
+      "size": null,
+      "client_link": null,
+      "asana_url": null,
       "order": null
     },
     {
@@ -224,9 +281,10 @@
       "owner": null,
       "due": "2026-11-18",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220308968990287",
+      "asana_url": null,
       "order": null
     },
     {
@@ -236,9 +294,10 @@
       "owner": "Adeline Jaulin",
       "due": "2026-12-11",
       "status": "To-do",
+      "completed": false,
       "size": "Small (1-2 hours)",
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220233175164701",
+      "asana_url": null,
       "order": null
     },
     {
@@ -248,9 +307,10 @@
       "owner": null,
       "due": "2026-11-13",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220184041311874",
+      "asana_url": null,
       "order": null
     },
     {
@@ -260,9 +320,23 @@
       "owner": null,
       "due": "2026-11-16",
       "status": "Shared with client",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220032300638068",
+      "asana_url": null,
+      "order": null
+    },
+    {
+      "id": "1219717583384721",
+      "name": "Prospect Toolkit | TOFu Promo Graphics",
+      "designer": "Juliana Dimon",
+      "owner": null,
+      "due": "2026-11-16",
+      "status": "Complete",
+      "completed": true,
+      "size": null,
+      "client_link": null,
+      "asana_url": null,
       "order": null
     },
     {
@@ -272,9 +346,10 @@
       "owner": null,
       "due": "2026-10-28",
       "status": "On Hold",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219701680275121",
+      "asana_url": null,
       "order": null
     },
     {
@@ -284,9 +359,10 @@
       "owner": null,
       "due": "2026-10-21",
       "status": "On Hold",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219677859200722",
+      "asana_url": null,
       "order": null
     },
     {
@@ -296,9 +372,10 @@
       "owner": null,
       "due": "2026-10-27",
       "status": "On Hold",
+      "completed": false,
       "size": null,
       "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1218017727647315",
+      "asana_url": null,
       "order": null
     }
   ]

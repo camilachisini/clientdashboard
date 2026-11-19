@@ -11,7 +11,7 @@ body { margin: 0; background: #F7F9F2; }
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&family=Playfair+Display:ital,wght@1,400&display=swap');
 .nm { --teal: #004854; --cream: #F7F9F2; --line: rgba(0, 72, 84, 0.45);
-  --t: #DBF3ED; --s: #E5EAF8; --m: #F8E5F2; --l: #FBE8D6; --xl: #FBDBD6;
+  --t: #DBF3ED; --s: #E5EAF8; --m: #F8E5F2; --l: #FBE8D6; --xl: #E9D3B0;
   font-family: 'Raleway', var(--font-anthropic-sans); color: var(--teal); background: var(--cream);
   padding: 56px 64px 48px; border-radius: 12px; min-width: 1180px; }
 .nm-wrap { overflow-x: auto; }
@@ -152,6 +152,8 @@ a.nm-card.dragging { opacity: .35; }
 .nm-over-name { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .nm-over-task em { font-style: normal; opacity: .7; white-space: nowrap; flex: none; }
 .nm, .nm * { font-variant-numeric: lining-nums proportional-nums; font-feature-settings: "lnum" 1, "pnum" 1; }
+.nm-card.is-done { opacity: .45; }
+.nm-done { flex: none; font-size: 13px; font-weight: 800; color: var(--teal); background: rgba(255,255,255,.7); border-radius: 100px; padding: 2px 9px; white-space: nowrap; }
 /* Fit everything in one screen */
 html, body { min-height: 100%; }
 .nm-wrap { min-height: 100vh; }
@@ -220,6 +222,6 @@ html, body { min-height: 100%; }
 
 
 <script src="html-to-image.js?v=2"></script>
-<script src="app.js?v=2026-11-19-10"></script>
+<script src="app.js?v=2026-11-19-11"></script>
 </body>
 </html>

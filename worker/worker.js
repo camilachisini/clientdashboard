@@ -4,7 +4,7 @@
 
 const PROJECT_ID = '1214040151426564';
 const ALLOWED_ORIGIN = 'https://camilachisini.github.io';
-const FIELDS = 'name,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
+const FIELDS = 'name,completed,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
 
 export default {
   async fetch(request, env, ctx) {
@@ -26,7 +26,8 @@ export default {
 
     try {
       const tasks = [];
-      let next = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=2099-01-01T00:00:00Z&limit=100&opt_fields=${encodeURIComponent(FIELDS)}`;
+      const since = new Date(Date.now() - 2 * 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
+      let next = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=${since}&limit=100&opt_fields=${encodeURIComponent(FIELDS)}`;
       while (next) {
         const r = await fetch(next, { headers: { Authorization: `Bearer ${env.ASANA_TOKEN}` } });
         if (!r.ok) throw new Error(`Asana ${r.status}`);
@@ -47,6 +48,7 @@ export default {
             owner: cf(t, 'Client task owner'),
             due: (clientDue ? String(clientDue).slice(0, 10) : null) || t.due_on,
             status: cf(t, 'Status') || 'No status',
+            completed: !!t.completed,
             size: cf(t, 'Task size'),
             order: order && order.number_value != null ? Number(order.number_value) : null
           };
