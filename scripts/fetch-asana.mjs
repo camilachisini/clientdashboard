@@ -7,7 +7,7 @@ const PROJECT_ID = process.env.ASANA_PROJECT_ID || '1214040151426564';
 const TOKEN = process.env.ASANA_TOKEN;
 if (!TOKEN) { console.error('Missing ASANA_TOKEN'); process.exit(1); }
 
-const fields = 'name,completed,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
+const fields = 'name,completed,completed_at,modified_at,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
 // Open tasks plus anything completed in the last 2 days (so today's delivered work stays visible).
 const since = new Date(Date.now() - 2 * 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
 let url = `https://app.asana.com/api/1.0/projects/${PROJECT_ID}/tasks?completed_since=${since}&limit=100&opt_fields=${encodeURIComponent(fields)}`;
@@ -33,6 +33,8 @@ const tasks = raw.map((t) => ({
   due: day(cf(t, 'Client Due Date')) || t.due_on,
   status: cf(t, 'Status') || 'No status',
   completed: !!t.completed,
+  // When it was delivered: completion time, or last change while Shared with client / Pending Approval.
+  delivered_at: t.completed ? t.completed_at : (['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) ? t.modified_at : null),
   size: cf(t, 'Task size'),
   client_link: cf(t, 'Client task link'),
   asana_url: t.permalink_url || null,

@@ -15,6 +15,7 @@ const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls)
 const count = (tasks, list) => tasks.filter((t) => !t.completed && list.includes(t.status)).length;
 const DELIVERED = ['Shared with client', 'Pending Approval', 'Complete'];
 const isDelivered = (t) => t.completed || DELIVERED.includes(t.status);
+const deliveredOn = (t) => (t.delivered_at ? iso(new Date(t.delivered_at)) : null);
 
 const state = { tasks: [], updated: null, live: false };
 
@@ -73,7 +74,8 @@ function plan(tasks) {
   // Delivered tasks due today stay on today, faded, so the day keeps its history.
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
   tasks
-    .filter((t) => t.due && ((!t.completed && ON_BOARD.includes(t.status)) || (isDelivered(t) && t.due === dates[0])))
+    .filter((t) => (!t.completed && t.due && ON_BOARD.includes(t.status)) || (isDelivered(t) && (t.due === dates[0] || deliveredOn(t) === dates[0])))
+    .map((t) => (isDelivered(t) ? { ...t, due: dates[0] } : t))
     .map((t) => ({ ...t, done: isDelivered(t) }))
     .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
     .filter((t) => days.has(t.due))

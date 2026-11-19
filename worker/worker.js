@@ -4,7 +4,7 @@
 
 const PROJECT_ID = '1214040151426564';
 const ALLOWED_ORIGIN = 'https://camilachisini.github.io';
-const FIELDS = 'name,completed,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
+const FIELDS = 'name,completed,completed_at,modified_at,assignee.name,due_on,permalink_url,custom_fields.gid,custom_fields.name,custom_fields.display_value,custom_fields.number_value';
 
 export default {
   async fetch(request, env, ctx) {
@@ -49,6 +49,7 @@ export default {
             due: (clientDue ? String(clientDue).slice(0, 10) : null) || t.due_on,
             status: cf(t, 'Status') || 'No status',
             completed: !!t.completed,
+            delivered_at: t.completed ? t.completed_at : (['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) ? t.modified_at : null),
             size: cf(t, 'Task size'),
             order: order && order.number_value != null ? Number(order.number_value) : null
           };
