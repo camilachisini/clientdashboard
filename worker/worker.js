@@ -49,12 +49,21 @@ export default {
             due: (clientDue ? String(clientDue).slice(0, 10) : null) || t.due_on,
             status: cf(t, 'Status') || 'No status',
             completed: !!t.completed,
-            delivered_at: t.completed ? t.completed_at : (['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) ? t.modified_at : null),
+            delivered_at: t.completed ? t.completed_at : null,
+            _check: !t.completed && ['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) && t.modified_at > since,
             size: cf(t, 'Task size'),
             order: order && order.number_value != null ? Number(order.number_value) : null
           };
         })
       };
+      // When was it shared? Read the Status history of recently changed tasks.
+      await Promise.all(out.tasks.filter((t) => t._check).map(async (t) => {
+        const r = await fetch(`https://app.asana.com/api/1.0/tasks/${t.id}/stories?opt_fields=created_at,resource_subtype,custom_field.name,new_enum_value.name&limit=100`, { headers: { Authorization: `Bearer ${env.ASANA_TOKEN}` } });
+        if (!r.ok) return;
+        const changes = (await r.json()).data.filter((x) => x.resource_subtype === 'enum_custom_field_changed' && x.custom_field && x.custom_field.name === 'Status' && x.new_enum_value && x.new_enum_value.name === t.status);
+        if (changes.length) t.delivered_at = changes[changes.length - 1].created_at;
+      }));
+      out.tasks.forEach((t) => { delete t._check; });
       const json = JSON.stringify(out);
       ctx.waitUntil(cache.put(key, new Response(json, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'max-age=60' } })));
       return new Response(json, { headers: cors });

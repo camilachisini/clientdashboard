@@ -71,7 +71,7 @@ function plan(tasks) {
   const days = new Map(dates.map((d) => [d, []]));
   const rank = (t) => (t.order == null ? 1e9 : t.order);
   // Only work the studio still has to do; anything past due lands on today.
-  // Delivered tasks due today stay on today, faded, so the day keeps its history.
+  // Delivered today (or due today and delivered) stays on today, faded.
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
   tasks
     .filter((t) => (!t.completed && t.due && ON_BOARD.includes(t.status)) || (isDelivered(t) && (t.due === dates[0] || deliveredOn(t) === dates[0])))
@@ -81,20 +81,42 @@ function plan(tasks) {
     .filter((t) => days.has(t.due))
     .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
     .sort((a, b) => b.done - a.done || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
-    .forEach((t) => {
-      const i = dates.indexOf(t.due);
-      if (t.total > CAP && i > 0) {
-        days.get(dates[i - 1]).unshift({ ...t, slots: CAP, part: 1, parts: 2, date: dates[i - 1] });
-        days.get(t.due).push({ ...t, slots: t.total - CAP, part: 2, parts: 2, date: t.due });
-      } else {
-        days.get(t.due).push({ ...t, slots: t.total, part: 1, parts: 1, date: t.due });
+    .forEach((t) => days.get(t.due).push({ ...t, slots: t.total, date: t.due }));
+
+  // Fill empty slots by pulling work forward from the following days (never later than its due date).
+  // A task that doesn't fit whole is split: part now, the rest stays on its own day.
+  const used = (d) => days.get(d).reduce((a, p) => a + p.slots, 0);
+  dates.forEach((date, i) => {
+    let free = CAP - used(date);
+    for (let j = i + 1; j < dates.length && free > 0; j++) {
+      const later = days.get(dates[j]);
+      while (free > 0) {
+        const k = later.findIndex((p) => !p.done);
+        if (k < 0) break;
+        const p = later[k];
+        if (p.slots <= free) {
+          later.splice(k, 1);
+          days.get(date).push({ ...p, date });
+          free -= p.slots;
+        } else {
+          days.get(date).push({ ...p, slots: free, date });
+          p.slots -= free;
+          free = 0;
+        }
       }
-    });
+    }
+  });
+
+  // Number the pieces of split tasks (1/2, 2/2…).
+  const pieces = new Map();
+  dates.forEach((d) => days.get(d).forEach((p) => { if (!pieces.has(p.id)) pieces.set(p.id, []); pieces.get(p.id).push(p); }));
+  pieces.forEach((list) => list.forEach((p, i) => { p.part = i + 1; p.parts = list.length; }));
+
   return dates.map((date) => {
     const list = days.get(date);
-    const fit = []; const extra = []; let used = 0;
-    list.forEach((p) => { if (used + p.slots <= CAP) { fit.push(p); used += p.slots; } else extra.push(p); });
-    return { date, fit, extra, used, total: list.reduce((a, p) => a + p.slots, 0) };
+    const fit = []; const extra = []; let n = 0;
+    list.forEach((p) => { if (n + p.slots <= CAP) { fit.push(p); n += p.slots; } else extra.push(p); });
+    return { date, fit, extra, used: n, total: list.reduce((a, p) => a + p.slots, 0) };
   });
 }
 

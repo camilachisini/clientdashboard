@@ -34,12 +34,25 @@ const tasks = raw.map((t) => ({
   status: cf(t, 'Status') || 'No status',
   completed: !!t.completed,
   // When it was delivered: completion time, or last change while Shared with client / Pending Approval.
-  delivered_at: t.completed ? t.completed_at : (['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) ? t.modified_at : null),
+  delivered_at: t.completed ? t.completed_at : null,
+  _check: !t.completed && ['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) && t.modified_at > since,
   size: cf(t, 'Task size'),
   client_link: cf(t, 'Client task link'),
   asana_url: t.permalink_url || null,
   order: (() => { const f = (t.custom_fields || []).find((x) => x.name === 'Order'); return f && f.number_value != null ? Number(f.number_value) : null; })()
 }));
+
+// For tasks shared with the client recently, read their history to find when the Status changed to it.
+for (const t of tasks) {
+  if (t._check) {
+    const r = await fetch(`https://app.asana.com/api/1.0/tasks/${t.id}/stories?opt_fields=created_at,resource_subtype,custom_field.name,new_enum_value.name&limit=100`, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    if (r.ok) {
+      const changes = (await r.json()).data.filter((x) => x.resource_subtype === 'enum_custom_field_changed' && x.custom_field && x.custom_field.name === 'Status' && x.new_enum_value && x.new_enum_value.name === t.status);
+      if (changes.length) t.delivered_at = changes[changes.length - 1].created_at;
+    }
+  }
+  delete t._check;
+}
 
 const OUT = process.env.OUTPUT || 'noma/data.json';
 let previous = null;
