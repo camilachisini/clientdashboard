@@ -78,6 +78,20 @@ body { margin: 0; background: #F7F9F2; }
 .nm-modal-note { margin: 8px 0 20px; font-size: 14px; opacity: .75; }
 .nm-modal-list { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; grid-auto-rows: 120px; }
 .nm-modal-list .nm-card { grid-row: auto; }
+
+button.nm-stat { background: transparent; color: var(--teal); font-family: inherit; text-align: left; cursor: pointer; align-items: flex-start; transition: background .15s; }
+button.nm-stat:hover { background: rgba(0, 72, 84, 0.06); }
+button.nm-stat:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+.nm-stat-label, .nm-stat-value { display: block; }
+.nm-modal-kicker.is-neutral { color: var(--teal); opacity: .7; }
+.nm-tl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.nm-tl th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .6; padding: 0 12px 8px 0; }
+.nm-tl td { padding: 10px 12px 10px 0; border-top: 1px solid rgba(0, 72, 84, 0.15); vertical-align: middle; }
+.nm-tl td { white-space: nowrap; }
+.nm-tl td.nm-tl-name { font-weight: 700; white-space: normal; width: 100%; }
+.nm-tl .nm-chip { display: inline-block; min-width: 22px; text-align: center; font-size: 12px; font-weight: 700; padding: 2px 6px; border-radius: 5px; }
+.nm-tl .nm-muted { opacity: .6; }
+.nm-tl .nm-status { white-space: nowrap; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 100px; border: 1px solid rgba(0, 72, 84, 0.35); }
 /* Fit everything in one screen */
 html, body { height: 100%; overflow: hidden; }
 .nm-wrap { height: 100vh; }
@@ -118,9 +132,9 @@ html, body { height: 100%; overflow: hidden; }
       <p class="nm-sub">Max plan</p>
     </div>
     <div class="nm-stats">
-      <div class="nm-stat"><p class="nm-stat-label">To-do</p><p class="nm-stat-value" id="t-todo">—</p></div>
-      <div class="nm-stat"><p class="nm-stat-label">Active</p><p class="nm-stat-value" id="t-active">—</p></div>
-      <div class="nm-stat"><p class="nm-stat-label">Under review</p><p class="nm-stat-value" id="t-review">—</p></div>
+      <button type="button" class="nm-stat" id="b-t-todo"><span class="nm-stat-label">To-do</span><span class="nm-stat-value" id="t-todo">—</span></button>
+      <button type="button" class="nm-stat" id="b-t-active"><span class="nm-stat-label">Active</span><span class="nm-stat-value" id="t-active">—</span></button>
+      <button type="button" class="nm-stat" id="b-t-review"><span class="nm-stat-label">Under review</span><span class="nm-stat-value" id="t-review">—</span></button>
     </div>
   </div>
 
@@ -187,17 +201,16 @@ function plan(tasks) {
   return { dates, used, parts };
 }
 
-function openOver(title, list, makeCard) {
+function openModal(kicker, title, note, content, neutral) {
   const back = el('div', 'nm-modal-back');
   const box = el('div', 'nm-modal');
+  box.setAttribute('role', 'dialog'); box.setAttribute('aria-modal', 'true'); box.setAttribute('aria-label', title);
   const head = el('div', 'nm-modal-head');
   const h = el('div');
-  h.append(el('p', 'nm-modal-kicker', 'Over capacity'), el('h2', 'nm-modal-title', title));
+  h.append(el('p', 'nm-modal-kicker' + (neutral ? ' is-neutral' : ''), kicker), el('h2', 'nm-modal-title', title));
   const close = el('button', 'nm-modal-close', '×'); close.type = 'button'; close.setAttribute('aria-label', 'Close');
   head.append(h, close);
-  const grid = el('div', 'nm-modal-list');
-  list.forEach((t) => { const c = makeCard(t); c.style.gridColumn = `span ${Math.min(t.slots, 4)}`; grid.appendChild(c); });
-  box.append(head, el('p', 'nm-modal-note', `These ${list.reduce((a, t) => a + t.slots, 0)}h don't fit in the 8 slots of this day.`), grid);
+  box.append(head, el('p', 'nm-modal-note', note), content);
   back.appendChild(box);
   const shut = () => { back.remove(); document.removeEventListener('keydown', esc); };
   const esc = (e) => { if (e.key === 'Escape') shut(); };
@@ -208,9 +221,51 @@ function openOver(title, list, makeCard) {
   close.focus();
 }
 
+function openOver(title, list, makeCard) {
+  const grid = el('div', 'nm-modal-list');
+  list.forEach((t) => { const c = makeCard(t); c.style.gridColumn = `span ${Math.min(t.slots, 4)}`; grid.appendChild(c); });
+  openModal('Over capacity', title, `These ${list.reduce((a, t) => a + t.slots, 0)}h don't fit in the 8 slots of this day.`, grid);
+}
+
+const SIZE_BG = { T: 'var(--t)', S: 'var(--s)', M: 'var(--m)', L: 'var(--l)', XL: 'var(--xl)' };
+function openList(name, list) {
+  const rows = [...list].sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999') || a.name.localeCompare(b.name));
+  let content;
+  if (!rows.length) content = el('p', 'nm-msg', 'No tasks here right now.');
+  else {
+    content = el('table', 'nm-tl');
+    const head = el('tr');
+    ['Size', 'Task', 'Client owner', 'Designer', 'Status', 'Due'].forEach((h) => head.appendChild(el('th', null, h)));
+    const thead = el('thead'); thead.appendChild(head);
+    const tbody = el('tbody');
+    rows.forEach((t) => {
+      const s = sizeOf(t);
+      const tr = el('tr');
+      const chip = el('span', 'nm-chip', s.known ? s.size : '—'); if (s.known) chip.style.background = SIZE_BG[s.size];
+      const c0 = el('td'); c0.appendChild(chip);
+      const c4 = el('td'); c4.appendChild(el('span', 'nm-status', t.status));
+      tr.append(c0, el('td', 'nm-tl-name', t.name), el('td', t.owner ? null : 'nm-muted', t.owner || '—'), el('td', null, t.designer), c4, el('td', t.due ? null : 'nm-muted', t.due ? label(t.due) : 'No date'));
+      tbody.appendChild(tr);
+    });
+    content.append(thead, tbody);
+  }
+  openModal('Noma tasks', name, rows.length === 1 ? '1 open task' : `${rows.length} open tasks`, content, true);
+}
+
+const GROUPS = {
+  't-todo': ['To-do', ['To-do', 'Auto-created']],
+  't-active': ['Active', ['In progress', 'Internal review', 'Shared with client', 'Pending Approval']],
+  't-review': ['Under review', ['Shared with client', 'Pending Approval']]
+};
+let currentTasks = [];
+Object.entries(GROUPS).forEach(([id, [name, statuses]]) => {
+  document.getElementById('b-' + id).addEventListener('click', () => openList(name, currentTasks.filter((t) => statuses.includes(t.status))));
+});
+
 function render(data) {
   document.querySelectorAll('.nm-modal-back').forEach((m) => m.remove());
   const tasks = data.tasks || [];
+  currentTasks = tasks;
   document.getElementById('t-todo').textContent = count(tasks, ['To-do', 'Auto-created']);
   document.getElementById('t-active').textContent = count(tasks, ['In progress', 'Internal review', 'Shared with client', 'Pending Approval']);
   document.getElementById('t-review').textContent = count(tasks, ['Shared with client', 'Pending Approval']);
