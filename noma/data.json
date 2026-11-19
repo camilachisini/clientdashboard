@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T20:19:51.276Z",
+  "generated_at": "2026-11-19T20:26:34.785Z",
   "tasks": [
     {
       "id": "1220704943640841",
@@ -9,11 +9,11 @@
       "due": "2026-11-23",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704943640841",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220704649595084",
@@ -23,11 +23,11 @@
       "due": null,
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704649595084",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220700012813915",
@@ -37,11 +37,11 @@
       "due": "2026-11-27",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220700012813915",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220691821123419",
@@ -51,11 +51,11 @@
       "due": "2026-11-19",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-19T19:11:47.137Z",
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821123419",
-      "order": null,
-      "delivered_at": "2026-11-19T19:11:47.137Z"
+      "order": null
     },
     {
       "id": "1220691821310419",
@@ -65,11 +65,11 @@
       "due": "2026-11-20",
       "status": "Internal review",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821310419",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220691843009149",
@@ -79,11 +79,11 @@
       "due": "2026-11-20",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691843009149",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220691821322907",
@@ -93,11 +93,11 @@
       "due": "2026-11-23",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821322907",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220703281811704",
@@ -107,11 +107,11 @@
       "due": "2026-11-23",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220703281811704",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220617014456727",
@@ -121,11 +121,11 @@
       "due": "2026-12-30",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220617014456727",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220592562845960",
@@ -135,11 +135,11 @@
       "due": null,
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Tiny (Less than 1 hour)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220592562845960",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220587664656664",
@@ -149,11 +149,11 @@
       "due": "2026-11-24",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-18T21:28:49.188Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220587664656664",
-      "order": null,
-      "delivered_at": "2026-11-18T21:28:49.188Z"
+      "order": null
     },
     {
       "id": "1220581878988333",
@@ -163,11 +163,11 @@
       "due": "2026-11-18",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-17T22:22:16.216Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220581878988333",
-      "order": null,
-      "delivered_at": "2026-11-17T22:22:16.216Z"
+      "order": null
     },
     {
       "id": "1220579681845826",
@@ -177,11 +177,11 @@
       "due": "2026-11-23",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681845826",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220579681622052",
@@ -191,11 +191,11 @@
       "due": "2026-11-20",
       "status": "Complete",
       "completed": true,
-      "size": "Medium (2-4 hours)",
+      "delivered_at": "2026-11-19T17:28:04.892Z",
+      "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681622052",
-      "order": null,
-      "delivered_at": "2026-11-19T17:28:04.892Z"
+      "order": null
     },
     {
       "id": "1220577044636135",
@@ -205,11 +205,11 @@
       "due": "2026-11-23",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220577044636135",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220439790267829",
@@ -219,11 +219,11 @@
       "due": "2026-11-20",
       "status": "In progress",
       "completed": false,
+      "delivered_at": null,
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220439790267829",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220450510803298",
@@ -233,11 +233,11 @@
       "due": "2026-11-25",
       "status": "Complete",
       "completed": true,
+      "delivered_at": "2026-11-17T23:03:04.609Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220450510803298",
-      "order": null,
-      "delivered_at": "2026-11-17T23:03:04.609Z"
+      "order": null
     },
     {
       "id": "1220428380841606",
@@ -247,11 +247,11 @@
       "due": "2026-11-16",
       "status": "On Hold",
       "completed": false,
+      "delivered_at": null,
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220428380841606",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220378703709156",
@@ -261,11 +261,11 @@
       "due": "2026-11-17",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-17T19:16:00.257Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220378703709156",
-      "order": null,
-      "delivered_at": "2026-11-17T19:16:00.257Z"
+      "order": null
     },
     {
       "id": "1220315936332209",
@@ -275,11 +275,11 @@
       "due": "2026-11-20",
       "status": "Shared with client",
       "completed": false,
-      "size": null,
+      "delivered_at": "2026-11-19T20:21:21.736Z",
+      "size": "Tiny (Less than 1 hour)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220315936332209",
-      "order": null,
-      "delivered_at": "2026-11-18T20:17:12.875Z"
+      "order": null
     },
     {
       "id": "1220313216599891",
@@ -289,11 +289,11 @@
       "due": "2026-11-10",
       "status": "Complete",
       "completed": true,
+      "delivered_at": "2026-11-17T23:03:19.187Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220313216599891",
-      "order": null,
-      "delivered_at": "2026-11-17T23:03:19.187Z"
+      "order": null
     },
     {
       "id": "1220308968990287",
@@ -303,11 +303,11 @@
       "due": "2026-11-18",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-18T16:59:21.707Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220308968990287",
-      "order": null,
-      "delivered_at": "2026-11-18T16:59:21.707Z"
+      "order": null
     },
     {
       "id": "1220233175164701",
@@ -317,11 +317,11 @@
       "due": "2026-12-11",
       "status": "To-do",
       "completed": false,
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220233175164701",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1220184041311874",
@@ -331,11 +331,11 @@
       "due": "2026-11-13",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-18T22:14:29.788Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220184041311874",
-      "order": null,
-      "delivered_at": "2026-11-18T22:14:29.788Z"
+      "order": null
     },
     {
       "id": "1220032300638068",
@@ -345,11 +345,11 @@
       "due": "2026-11-16",
       "status": "Shared with client",
       "completed": false,
+      "delivered_at": "2026-11-16T20:42:24.573Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220032300638068",
-      "order": null,
-      "delivered_at": "2026-11-16T20:42:24.573Z"
+      "order": null
     },
     {
       "id": "1219717583384721",
@@ -359,11 +359,11 @@
       "due": "2026-11-16",
       "status": "Complete",
       "completed": true,
+      "delivered_at": "2026-11-18T22:10:22.537Z",
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219717583384721",
-      "order": null,
-      "delivered_at": "2026-11-18T22:10:22.537Z"
+      "order": null
     },
     {
       "id": "1219701680275121",
@@ -373,11 +373,11 @@
       "due": "2026-10-28",
       "status": "On Hold",
       "completed": false,
+      "delivered_at": null,
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219701680275121",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1219677859200722",
@@ -387,11 +387,11 @@
       "due": "2026-10-21",
       "status": "On Hold",
       "completed": false,
+      "delivered_at": null,
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219677859200722",
-      "order": null,
-      "delivered_at": null
+      "order": null
     },
     {
       "id": "1218017727647315",
@@ -401,11 +401,11 @@
       "due": "2026-10-27",
       "status": "On Hold",
       "completed": false,
+      "delivered_at": null,
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1218017727647315",
-      "order": null,
-      "delivered_at": null
+      "order": null
     }
   ]
 }
