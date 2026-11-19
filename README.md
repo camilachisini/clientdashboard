@@ -22,3 +22,15 @@ After a minute or two the dashboard will be at `https://camilachisini.github.io/
 ## Sharing with the client
 
 Open the page and click **Download image** (bottom right). You get a 1920 × 1080 PNG, at double resolution, of the current schedule, ready to send.
+
+## Live data (Cloudflare Worker)
+
+`worker/worker.js` returns the tasks live from Asana, so the page is up to date every time someone opens it and the **Update now** button works for everyone without a token.
+
+1. Create a free account at https://dash.cloudflare.com.
+2. Go to **Workers & Pages → Create → Create Worker**, name it `noma-dashboard`, then **Deploy**.
+3. Click **Edit code**, replace everything with the contents of `worker/worker.js`, then **Deploy**.
+4. Open the worker's **Settings → Variables and Secrets → Add**. Type: *Secret*, name: `ASANA_TOKEN`, value: your Asana token. Save.
+5. Copy the worker's address (like `https://noma-dashboard.yourname.workers.dev`) and set it as `LIVE_URL` at the top of `noma/app.js`.
+
+If the worker is down, the page falls back to `data.json`, which the GitHub Action still refreshes every 30 minutes.

@@ -14,7 +14,7 @@ const weekday = (s) => new Date(s + 'T12:00:00').getDay();
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const count = (tasks, list) => tasks.filter((t) => list.includes(t.status)).length;
 
-const state = { tasks: [], updated: null };
+const state = { tasks: [], updated: null, live: false };
 
 // ---------- data ----------
 function sizeOf(t) {
@@ -23,16 +23,33 @@ function sizeOf(t) {
   return SLOTS[g] ? { size: g, known: true } : { size: 'S', known: false };
 }
 
-async function refresh() {
+// Live data comes from the Cloudflare Worker (keeps the Asana token secret).
+// If it isn't set up or doesn't answer, the page falls back to data.json from the GitHub Action.
+const LIVE_URL = '';
+
+async function getData(fresh) {
+  if (LIVE_URL) {
+    try {
+      const r = await fetch(LIVE_URL + (fresh ? '?fresh=1' : ''), { cache: 'no-store' });
+      if (r.ok) return { ...(await r.json()), live: true };
+    } catch (e) { /* fall back */ }
+  }
+  const r = await fetch('data.json?t=' + Date.now());
+  if (!r.ok) throw new Error(r.status);
+  return r.json();
+}
+
+async function refresh(fresh) {
   try {
-    const r = await fetch('data.json?t=' + Date.now());
-    if (!r.ok) throw new Error(r.status);
-    const d = await r.json();
+    const d = await getData(fresh);
     state.tasks = d.tasks || [];
     state.updated = d.generated_at;
+    state.live = !!d.live;
     render();
+    return true;
   } catch (e) {
     if (!state.tasks.length) document.getElementById('board').replaceChildren(el('div', 'nm-msg', 'Could not load tasks.'));
+    return false;
   }
 }
 
@@ -150,7 +167,7 @@ function render() {
   });
 
   const updated = state.updated ? new Date(state.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
-  document.getElementById('foot').textContent = `Updated ${updated} · Next 5 working days · 1 slot = 1 hour · red ⚠ = tasks that don't fit in the 8 slots of the day`;
+  document.getElementById('foot').textContent = `${state.live ? 'Live from Asana' : 'Updated'} ${updated} · Next 5 working days · 1 slot = 1 hour · red ⚠ = tasks that don't fit in the 8 slots of the day`;
 }
 
 // ---------- download ----------
@@ -194,44 +211,14 @@ if (RENDER_MODE) {
 window.nmReady = ready;
 
 // ---------- update now ----------
-// Starts the "Update dashboard data" GitHub Action, then waits for the new data.json.
-// Needs a GitHub fine-grained token with Actions: Read and write on this repo only. It is kept in this browser only.
-const GH_KEY = 'nm-gh-token';
-const WORKFLOW_URL = 'https://api.github.com/repos/camilachisini/clientdashboard/actions/workflows/update-data.yml/dispatches';
 if (!RENDER_MODE) {
   const ub = document.getElementById('update');
-  const setLabel = (t) => { ub.textContent = t; };
+  if (!LIVE_URL) ub.hidden = true;
   ub.addEventListener('click', async () => {
-    let token = localStorage.getItem(GH_KEY);
-    if (!token) {
-      token = (prompt('Paste your GitHub token (Actions: read and write, this repo only). It stays only in this browser.') || '').trim();
-      if (!token) return;
-      localStorage.setItem(GH_KEY, token);
-    }
-    ub.disabled = true; setLabel('Starting update…');
-    try {
-      const r = await fetch(WORKFLOW_URL, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ref: 'main' })
-      });
-      if (r.status === 401 || r.status === 403 || r.status === 404) { localStorage.removeItem(GH_KEY); throw new Error('token'); }
-      if (!r.ok) throw new Error(String(r.status));
-      setLabel('Updating from Asana…');
-      const before = state.updated;
-      const started = Date.now();
-      while (Date.now() - started < 5 * 60 * 1000) {
-        await new Promise((res) => setTimeout(res, 10000));
-        await refresh();
-        if (state.updated !== before) { setLabel('Updated ✓'); setTimeout(() => setLabel('Update now'), 3000); return; }
-      }
-      setLabel('Still updating, reload in a minute');
-    } catch (e) {
-      alert(e.message === 'token' ? 'GitHub didn’t accept that token. Click Update now to paste a new one.' : 'Could not start the update. Please try again.');
-      setLabel('Update now');
-    } finally {
-      ub.disabled = false;
-    }
+    ub.disabled = true; ub.textContent = 'Updating…';
+    const ok = await refresh(true);
+    ub.textContent = ok && state.live ? 'Updated ✓' : 'Could not update';
+    setTimeout(() => { ub.textContent = 'Update now'; ub.disabled = false; }, 2500);
   });
 }
 
