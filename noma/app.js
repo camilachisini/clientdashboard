@@ -147,10 +147,10 @@ function makeCard(t) {
   const top = el('div', 'nm-card-top');
   const head = el('div', 'nm-card-head');
   head.appendChild(el('div', 'nm-card-name', t.name));
-  if (t.clientDue) head.appendChild(el('div', 'nm-card-due', `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}`));
+  if (t.owner) head.appendChild(el('div', 'nm-card-due', t.owner));
   top.append(head, el('span', 'nm-size', t.size));
   const bottom = el('div', 'nm-card-bottom');
-  bottom.appendChild(el('span', 'nm-designer', t.owner || ''));
+  bottom.appendChild(el('span', 'nm-designer', t.clientDue ? `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}` : ''));
   if (t.done) { card.classList.add('is-done'); bottom.appendChild(el('span', 'nm-done', '✓ Delivered')); }
   if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
   card.append(top, bottom);
