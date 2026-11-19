@@ -19,12 +19,6 @@ After a minute or two the dashboard will be at `https://camilachisini.github.io/
 - The page reloads `data.json` every 5 minutes, so a screen left open stays current.
 - To change how often it updates, edit the `cron` line in `.github/workflows/update-data.yml`.
 
-## Editing the schedule
+## Sharing with the client
 
-Click **Edit schedule** on the dashboard and paste an Asana personal access token. The token is saved only in that browser, never in this repo. While connected:
-
-- Tasks load live from Asana.
-- Drag a card to another day, or to another position in the same day. This updates the task's due date and its **Order** field in Asana.
-- Click the red **+** on an over-capacity day to move those tasks to another day, or pick any other weekday with the date field.
-
-People who view the page without connecting can only look.
+Open the page and click **Download image** (bottom right). You get a 1920 × 1080 PNG, at double resolution, of the current schedule, ready to send.

@@ -127,6 +127,10 @@ a.nm-card.dragging { opacity: .35; }
 .nm-btn { font-family: inherit; font-size: 14px; font-weight: 700; background: var(--teal); color: var(--cream); border: 0; border-radius: 12px; padding: 12px 20px; cursor: pointer; }
 .nm-btn:disabled { opacity: .5; }
 .nm-err { flex-basis: 100%; margin: 0; font-size: 13px; color: #B3261E; min-height: 1em; }
+.nm-download { position: fixed; right: 20px; bottom: 16px; z-index: 5; font-family: 'Raleway', system-ui, sans-serif; font-size: 14px; font-weight: 700; background: #004854; color: #F7F9F2; border: 0; border-radius: 100px; padding: 10px 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(0, 0, 0, .15); }
+.nm-download:disabled { opacity: .6; }
+.nm-more { cursor: default; }
+.render-mode .nm-download { display: none; }
 /* Fit everything in one screen */
 html, body { height: 100%; overflow: hidden; }
 .nm-wrap { height: 100vh; }
@@ -167,9 +171,9 @@ html, body { height: 100%; overflow: hidden; }
       <p class="nm-sub">Max plan</p>
     </div>
     <div class="nm-stats">
-      <button type="button" class="nm-stat" id="b-t-todo"><span class="nm-stat-label">To-do</span><span class="nm-stat-value" id="t-todo">—</span></button>
-      <button type="button" class="nm-stat" id="b-t-active"><span class="nm-stat-label">Active</span><span class="nm-stat-value" id="t-active">—</span></button>
-      <button type="button" class="nm-stat" id="b-t-review"><span class="nm-stat-label">Under review</span><span class="nm-stat-value" id="t-review">—</span></button>
+      <div class="nm-stat"><span class="nm-stat-label">To-do</span><span class="nm-stat-value" id="t-todo">—</span></div>
+      <div class="nm-stat"><span class="nm-stat-label">Active</span><span class="nm-stat-value" id="t-active">—</span></div>
+      <div class="nm-stat"><span class="nm-stat-label">Under review</span><span class="nm-stat-value" id="t-review">—</span></div>
     </div>
   </div>
 
@@ -180,7 +184,7 @@ html, body { height: 100%; overflow: hidden; }
     <span><i style="background:var(--l)">L</i>Large · 8h, full day</span>
     <span><i style="background:var(--xl)">XL</i>Extra large · 12h, splits across days</span>
     <span class="nm-unit">1 slot = 1 hour · 8 slots per day</span>
-    <button type="button" class="nm-edit" id="edit">Edit schedule</button>
+    
   </div>
 
   <div class="nm-board" id="board"><div class="nm-msg">Loading tasks…</div></div>
@@ -189,7 +193,8 @@ html, body { height: 100%; overflow: hidden; }
 </div>
 </div>
 
-<div class="nm-toast" id="toast" role="status" aria-live="polite"></div>
+<button type="button" class="nm-download" id="download">Download image</button>
+<script src="html-to-image.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
