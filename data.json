@@ -1,0 +1,31 @@
+{
+  "generated_at": "2026-11-19T15:05:00.000Z",
+  "tasks": [
+    { "id": "1220704943640841", "name": "NOMA re:Invent Social Cards", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-23", "status": "To-do", "size": null },
+    { "id": "1220704649595084", "name": "2027-03 APJ Security Days Tokyo", "designer": "Roberto Bizz", "owner": "Adeline Jaulin", "due": null, "status": "To-do", "size": null },
+    { "id": "1220700012813915", "name": "A4 Noma Poster", "designer": "Roberto Bizz", "owner": "Heather Pearse", "due": "2026-11-25", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220691821123419", "name": "Blog thumbnail - \"Should Last Week's Outages Worry You? What Recent Headlines Mean in an Agent-Powered World\"", "designer": "Juliana Dimon", "owner": "Charlie McCarthy", "due": "2026-11-19", "status": "In progress", "size": "Small (1-2 hours)" },
+    { "id": "1220691821310419", "name": "Blog thumbnail - \"You've Got a Giant Inventory of AI Agents: Now What Do You Do with It?\"", "designer": "Juliana Dimon", "owner": "Charlie McCarthy", "due": "2026-11-19", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220691843009149", "name": "Blog thumbnail - \"Noma Expands Hosting to Australia and Singapore\"", "designer": "Juliana Dimon", "owner": "Charlie McCarthy", "due": "2026-11-19", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220691821322907", "name": "Blog thumbnail - \"By Grabthar's Hammer of AI: Not Every Problem Is a Nail\"", "designer": "Juliana Dimon", "owner": "Charlie McCarthy", "due": "2026-11-23", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220703281811704", "name": "HISAC Social Cards", "designer": "Thiago Duarte", "owner": "Pia Rodil", "due": "2026-11-23", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220617014456727", "name": "2027-01 FR/DACH announcement", "designer": "Roberto Bizz", "owner": "Adeline Jaulin", "due": "2026-12-01", "status": "To-do", "size": "Medium (2-6 hours)" },
+    { "id": "1220592562845960", "name": "Square noma logo file", "designer": "Roberto Bizz", "owner": null, "due": null, "status": "To-do", "size": "Tiny (Less than 1 hour)" },
+    { "id": "1220587664656664", "name": "2026-12 UKI CyberSync social media", "designer": "Denise Mayer", "owner": null, "due": "2026-11-18", "status": "Shared with client", "size": null },
+    { "id": "1220581878988333", "name": "2026-12 AI Sec summit post cards + sign", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-17", "status": "Shared with client", "size": null },
+    { "id": "1220579681845826", "name": "2026-12 BNL Cloud Expo- social Card", "designer": "Denise Mayer", "owner": null, "due": "2026-11-23", "status": "To-do", "size": "Medium (2-6 hours)" },
+    { "id": "1220579681622052", "name": "2026-12 UKI FS-ISAC Social cards + post cards + game sign", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-19", "status": "In progress", "size": "Medium (2-6 hours)" },
+    { "id": "1220577044636135", "name": "Noma x GuidePoint reInvent Happy Hour", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-23", "status": "To-do", "size": "Medium (2-6 hours)" },
+    { "id": "1220439790267829", "name": "'Sleigh the Season' Demo Request Graphics", "designer": "Juliana Dimon", "owner": "Ashley Eining", "due": "2026-11-19", "status": "To-do", "size": "Medium (2-6 hours)" },
+    { "id": "1220428380841606", "name": "Hiring post for 2 new marketing hires", "designer": "Thiago Duarte", "owner": null, "due": "2026-11-13", "status": "On Hold", "size": null },
+    { "id": "1220378703709156", "name": "Business Cards", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-16", "status": "Shared with client", "size": null },
+    { "id": "1220315936332209", "name": "2026-12 UK CyberSync - social banner", "designer": "Denise Mayer", "owner": null, "due": "2026-11-18", "status": "Shared with client", "size": null },
+    { "id": "1220308968990287", "name": "2026-12 UK AI Sec Summit - social banner", "designer": "Thiago Duarte", "owner": null, "due": "2026-11-17", "status": "Shared with client", "size": null },
+    { "id": "1220233175164701", "name": "2027-01 UK NSPCC Whiteball - chocolate bars", "designer": "Juliana Dimon", "owner": null, "due": "2026-12-01", "status": "To-do", "size": "Small (1-2 hours)" },
+    { "id": "1220184041311874", "name": "PDF: AI Security for Everyone, Vol. 1 — AI Foundations and Vocabulary", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-17", "status": "Shared with client", "size": null },
+    { "id": "1220032300638068", "name": "Platform | BOFu LI Ad Graphics", "designer": "Juliana Dimon", "owner": null, "due": "2026-11-16", "status": "Shared with client", "size": null },
+    { "id": "1219701680275121", "name": "Rebrand Email Newsletter Template", "designer": "Juliana Dimon", "owner": null, "due": "2026-10-28", "status": "On Hold", "size": null },
+    { "id": "1219677859200722", "name": "Promo Graphics", "designer": "Juliana Dimon", "owner": null, "due": "2026-10-21", "status": "On Hold", "size": null },
+    { "id": "1218017727647315", "name": "One-pagers (22 in total)", "designer": "Camila Chisini", "owner": null, "due": "2026-09-25", "status": "On Hold", "size": null }
+  ]
+}
