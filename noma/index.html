@@ -179,7 +179,9 @@ html, body { min-height: 100%; }
 .nm-badge { white-space: nowrap; }
 .nm-track { grid-auto-rows: auto; grid-template-rows: 100%; gap: 12px; min-height: 0; }
 .nm-card, .nm-slot { border-radius: 14px; }
-.nm-card { padding: 1vh 11px; }
+.nm-card { padding: 12px 14px; container-type: size; }
+.nm-card-top { gap: 12px; }
+@container (max-height: 104px) { .nm-card-name { -webkit-line-clamp: 1; } }
 .nm-card-name { font-size: clamp(13px, 1.7vh, 16px); line-height: 1.35; }
 .nm-size { min-width: 26px; height: 26px; font-size: 14px; }
 .nm-designer { font-size: 13px; }
