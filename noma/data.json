@@ -1,14 +1,17 @@
 {
-  "generated_at": "2026-11-19T16:32:59.442Z",
+  "generated_at": "2026-11-19T17:55:54.894Z",
   "tasks": [
     {
       "id": "1220704943640841",
       "name": "NOMA re:Invent Social Cards",
       "designer": "Juliana Dimon",
-      "owner": null,
+      "owner": "Matt Madden",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": null
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704943640841",
+      "order": null
     },
     {
       "id": "1220704649595084",
@@ -17,7 +20,10 @@
       "owner": "Adeline Jaulin",
       "due": null,
       "status": "To-do",
-      "size": null
+      "size": "Medium (2-6 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704649595084",
+      "order": null
     },
     {
       "id": "1220700012813915",
@@ -26,7 +32,10 @@
       "owner": "Heather Pearse",
       "due": "2026-11-25",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220700012813915",
+      "order": null
     },
     {
       "id": "1220691821123419",
@@ -35,7 +44,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-19",
       "status": "In progress",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821123419",
+      "order": null
     },
     {
       "id": "1220691821310419",
@@ -44,7 +56,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-19",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821310419",
+      "order": null
     },
     {
       "id": "1220691843009149",
@@ -53,7 +68,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-19",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691843009149",
+      "order": null
     },
     {
       "id": "1220691821322907",
@@ -62,7 +80,10 @@
       "owner": "Charlie McCarthy",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821322907",
+      "order": null
     },
     {
       "id": "1220703281811704",
@@ -71,7 +92,10 @@
       "owner": "Pia Rodil",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220703281811704",
+      "order": null
     },
     {
       "id": "1220617014456727",
@@ -80,7 +104,10 @@
       "owner": "Adeline Jaulin",
       "due": "2026-12-01",
       "status": "To-do",
-      "size": "Medium (2-6 hours)"
+      "size": "Medium (2-6 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220617014456727",
+      "order": null
     },
     {
       "id": "1220592562845960",
@@ -89,7 +116,10 @@
       "owner": null,
       "due": null,
       "status": "To-do",
-      "size": "Tiny (Less than 1 hour)"
+      "size": "Tiny (Less than 1 hour)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220592562845960",
+      "order": null
     },
     {
       "id": "1220587664656664",
@@ -98,7 +128,10 @@
       "owner": null,
       "due": "2026-11-18",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220587664656664",
+      "order": null
     },
     {
       "id": "1220581878988333",
@@ -107,34 +140,34 @@
       "owner": null,
       "due": "2026-11-17",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220581878988333",
+      "order": null
     },
     {
       "id": "1220579681845826",
       "name": "2026-12 BNL Cloud Expo- social Card",
       "designer": "Thiago Duarte",
-      "owner": null,
+      "owner": "Adeline Jaulin",
       "due": "2026-11-19",
       "status": "To-do",
-      "size": "Medium (2-6 hours)"
-    },
-    {
-      "id": "1220579681622052",
-      "name": "2026-12 UKI FS-ISAC Social cards + post cards + game sign",
-      "designer": "Juliana Dimon",
-      "owner": null,
-      "due": "2026-11-19",
-      "status": "Shared with client",
-      "size": "Medium (2-6 hours)"
+      "size": "Medium (2-6 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681845826",
+      "order": null
     },
     {
       "id": "1220577044636135",
       "name": "Noma x GuidePoint reInvent Happy Hour",
       "designer": "Juliana Dimon",
-      "owner": null,
+      "owner": "Jordyn Jones",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Medium (2-6 hours)"
+      "size": "Medium (2-6 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220577044636135",
+      "order": null
     },
     {
       "id": "1220439790267829",
@@ -143,7 +176,10 @@
       "owner": "Ashley Eining",
       "due": "2026-11-19",
       "status": "To-do",
-      "size": "Medium (2-6 hours)"
+      "size": "Medium (2-6 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220439790267829",
+      "order": null
     },
     {
       "id": "1220428380841606",
@@ -152,7 +188,10 @@
       "owner": null,
       "due": "2026-11-13",
       "status": "On Hold",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220428380841606",
+      "order": null
     },
     {
       "id": "1220378703709156",
@@ -161,7 +200,10 @@
       "owner": null,
       "due": "2026-11-16",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220378703709156",
+      "order": null
     },
     {
       "id": "1220315936332209",
@@ -170,7 +212,10 @@
       "owner": null,
       "due": "2026-11-18",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220315936332209",
+      "order": null
     },
     {
       "id": "1220308968990287",
@@ -179,16 +224,22 @@
       "owner": null,
       "due": "2026-11-17",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220308968990287",
+      "order": null
     },
     {
       "id": "1220233175164701",
       "name": "2027-01 UK NSPCC Whiteball - chocolate bars",
       "designer": "Juliana Dimon",
-      "owner": null,
+      "owner": "Adeline Jaulin",
       "due": "2026-12-01",
       "status": "To-do",
-      "size": "Small (1-2 hours)"
+      "size": "Small (1-2 hours)",
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220233175164701",
+      "order": null
     },
     {
       "id": "1220184041311874",
@@ -197,7 +248,10 @@
       "owner": null,
       "due": "2026-11-17",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220184041311874",
+      "order": null
     },
     {
       "id": "1220032300638068",
@@ -206,7 +260,10 @@
       "owner": null,
       "due": "2026-11-16",
       "status": "Shared with client",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220032300638068",
+      "order": null
     },
     {
       "id": "1219701680275121",
@@ -215,7 +272,10 @@
       "owner": null,
       "due": "2026-10-28",
       "status": "On Hold",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219701680275121",
+      "order": null
     },
     {
       "id": "1219677859200722",
@@ -224,7 +284,10 @@
       "owner": null,
       "due": "2026-10-21",
       "status": "On Hold",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1219677859200722",
+      "order": null
     },
     {
       "id": "1218017727647315",
@@ -233,7 +296,10 @@
       "owner": null,
       "due": "2026-09-25",
       "status": "On Hold",
-      "size": null
+      "size": null,
+      "client_link": null,
+      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1218017727647315",
+      "order": null
     }
   ]
 }
