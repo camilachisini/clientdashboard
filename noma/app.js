@@ -79,9 +79,7 @@ function makeCard(t) {
   const top = el('div', 'nm-card-top');
   top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size));
   const bottom = el('div', 'nm-card-bottom');
-  const who = el('span', 'nm-designer', t.owner || t.designer);
-  if (t.owner) who.appendChild(el('em', null, ` · ${t.designer.split(' ')[0]}`));
-  bottom.appendChild(who);
+  bottom.appendChild(el('span', 'nm-designer', t.owner || ''));
   if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
   card.append(top, bottom);
   return card;
