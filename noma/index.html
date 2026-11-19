@@ -61,6 +61,23 @@ body { margin: 0; background: #F7F9F2; }
 .nm-msg { font-size: 16px; opacity: .7; padding: 24px 0; }
 
 .nm { border-radius: 0; box-sizing: border-box; }
+
+.nm { --more-w: 72px; }
+.nm-more { grid-row: 1; border: 0; border-radius: 14px; background: #B3261E; color: #fff; cursor: pointer; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0; }
+.nm-more:hover { background: #8F1E18; }
+.nm-more:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+.nm-more-plus { font-size: 30px; font-weight: 300; line-height: 1; }
+.nm-more-n { font-size: 15px; font-weight: 700; }
+.nm-more-t { font-size: 11px; font-weight: 500; opacity: .85; }
+.nm-modal-back { position: fixed; inset: 0; background: rgba(0, 40, 47, 0.45); display: flex; align-items: center; justify-content: center; z-index: 10; }
+.nm-modal { background: var(--cream); color: var(--teal); border-radius: 18px; padding: 28px 32px 32px; width: min(1100px, 90vw); max-height: 85vh; overflow: auto; box-shadow: 0 20px 60px rgba(0,0,0,.25); font-family: 'Raleway', system-ui, sans-serif; }
+.nm-modal-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.nm-modal-kicker { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #B3261E; }
+.nm-modal-title { margin: 4px 0 0; font-size: 26px; font-weight: 700; }
+.nm-modal-close { border: 2px solid var(--teal); background: transparent; color: var(--teal); border-radius: 50%; width: 36px; height: 36px; font-size: 22px; line-height: 1; cursor: pointer; }
+.nm-modal-note { margin: 8px 0 20px; font-size: 14px; opacity: .75; }
+.nm-modal-list { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 12px; grid-auto-rows: 120px; }
+.nm-modal-list .nm-card { grid-row: auto; }
 /* Fit everything in one screen */
 html, body { height: 100%; overflow: hidden; }
 .nm-wrap { height: 100vh; }
@@ -170,7 +187,29 @@ function plan(tasks) {
   return { dates, used, parts };
 }
 
+function openOver(title, list, makeCard) {
+  const back = el('div', 'nm-modal-back');
+  const box = el('div', 'nm-modal');
+  const head = el('div', 'nm-modal-head');
+  const h = el('div');
+  h.append(el('p', 'nm-modal-kicker', 'Over capacity'), el('h2', 'nm-modal-title', title));
+  const close = el('button', 'nm-modal-close', '×'); close.type = 'button'; close.setAttribute('aria-label', 'Close');
+  head.append(h, close);
+  const grid = el('div', 'nm-modal-list');
+  list.forEach((t) => { const c = makeCard(t); c.style.gridColumn = `span ${Math.min(t.slots, 4)}`; grid.appendChild(c); });
+  box.append(head, el('p', 'nm-modal-note', `These ${list.reduce((a, t) => a + t.slots, 0)}h don't fit in the 8 slots of this day.`), grid);
+  back.appendChild(box);
+  const shut = () => { back.remove(); document.removeEventListener('keydown', esc); };
+  const esc = (e) => { if (e.key === 'Escape') shut(); };
+  close.addEventListener('click', shut);
+  back.addEventListener('click', (e) => { if (e.target === back) shut(); });
+  document.addEventListener('keydown', esc);
+  document.getElementById('noma-dashboard').appendChild(back);
+  close.focus();
+}
+
 function render(data) {
+  document.querySelectorAll('.nm-modal-back').forEach((m) => m.remove());
   const tasks = data.tasks || [];
   document.getElementById('t-todo').textContent = count(tasks, ['To-do', 'Auto-created']);
   document.getElementById('t-active').textContent = count(tasks, ['In progress', 'Internal review', 'Shared with client', 'Pending Approval']);
@@ -196,31 +235,47 @@ function render(data) {
     day.appendChild(cap);
 
     const track = el('div', 'nm-track');
-    track.style.gridTemplateColumns = `repeat(${Math.max(CAP, n)}, minmax(0, 1fr))`;
+    track.style.gridTemplateColumns = `repeat(${CAP}, minmax(0, 1fr)) var(--more-w)`;
+    const makeCard = (t) => {
+      const card = el('div', `nm-card sz-${t.size.toLowerCase()}`);
+      if (t.part < t.parts) card.classList.add('cont-next');
+      if (t.part > 1) card.classList.add('cont-prev');
+      card.title = `${t.name}\nOwner: ${t.owner || '—'}\nDesigner: ${t.designer}\nStatus: ${t.status}\nDue: ${label(t.due)}`;
+      const top = el('div', 'nm-card-top');
+      top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size + (t.known ? '' : '*')));
+      const bottom = el('div', 'nm-card-bottom');
+      const who = el('span', 'nm-designer', t.owner || t.designer);
+      if (t.owner) who.appendChild(el('em', null, ` · ${t.designer.split(' ')[0]}`));
+      bottom.appendChild(who);
+      if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
+      card.append(top, bottom);
+      return card;
+    };
+    // Fill the 8 slots first; whatever doesn't fit goes behind the red + button.
     let start = 1;
+    const extra = [];
     parts.filter((p) => p.date === date)
       .sort((a, b) => a.over - b.over || (b.part > 1) - (a.part > 1) || b.slots - a.slots || a.name.localeCompare(b.name))
       .forEach((t) => {
-        const card = el('div', `nm-card sz-${t.size.toLowerCase()}`);
+        if (start + t.slots - 1 > CAP) { extra.push(t); return; }
+        const card = makeCard(t);
         card.style.gridColumn = `${start} / span ${t.slots}`; start += t.slots;
-        if (t.part < t.parts) card.classList.add('cont-next');
-        if (t.part > 1) card.classList.add('cont-prev');
-        if (t.over) card.classList.add('is-over');
-        card.title = `${t.name}\nOwner: ${t.owner || '—'}\nDesigner: ${t.designer}\nStatus: ${t.status}\nDue: ${label(t.due)}`;
-        const top = el('div', 'nm-card-top');
-        top.append(el('div', 'nm-card-name', t.name), el('span', 'nm-size', t.size + (t.known ? '' : '*')));
-        const bottom = el('div', 'nm-card-bottom');
-        const who = el('span', 'nm-designer', t.owner || t.designer);
-        if (t.owner) { const em = el('em', null, ` · ${t.designer.split(' ')[0]}`); who.appendChild(em); }
-        bottom.appendChild(who);
-        if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
-        card.append(top, bottom);
         track.appendChild(card);
       });
     for (let k = start; k <= CAP; k++) {
       const slot = el('div', 'nm-slot'); slot.style.gridColumn = String(k);
-      if (k === start) slot.appendChild(el('span', null, free === 1 ? '1 free slot' : `${free} free slots`));
+      if (k === start && !extra.length) slot.appendChild(el('span', null, free === 1 ? '1 free slot' : `${free} free slots`));
       track.appendChild(slot);
+    }
+    if (extra.length) {
+      const hours = extra.reduce((a, t) => a + t.slots, 0);
+      const btn = el('button', 'nm-more');
+      btn.type = 'button';
+      btn.setAttribute('aria-label', `${extra.length} more tasks, ${hours} hours over capacity`);
+      btn.append(el('span', 'nm-more-plus', '+'), el('span', 'nm-more-n', `${hours}h`), el('span', 'nm-more-t', extra.length === 1 ? '1 task' : `${extra.length} tasks`));
+      btn.style.gridColumn = String(CAP + 1);
+      btn.addEventListener('click', () => openOver(date === today ? `Today · ${label(date)}` : `${DAYS[wd]} · ${label(date)}`, extra, makeCard));
+      track.appendChild(btn);
     }
     row.append(day, track);
     board.appendChild(row);
@@ -229,7 +284,7 @@ function render(data) {
   const updated = data.generated_at ? new Date(data.generated_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' }) : '—';
   const hold = count(tasks, ['On Hold']);
   document.getElementById('foot').textContent =
-    `Updated from Asana ${updated} · Next 5 working days · Earliest deadline first; red outline = over capacity · ${hold} on hold, not shown · * no size in Asana, counted as Small`;
+    `Updated from Asana ${updated} · Next 5 working days · Earliest deadline first · red + = tasks that don't fit in the day · ${hold} on hold, not shown · * no size in Asana, counted as Small`;
 }
 
 fetch('data.json?t=' + Date.now())
