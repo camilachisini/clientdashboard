@@ -78,11 +78,13 @@ function plan(tasks) {
     .filter((t) => (!t.completed && t.due && ON_BOARD.includes(t.status)) || (isDelivered(t) && (t.due === dates[0] || deliveredOn(t) === dates[0])))
     .map((t) => ({ ...t, clientDue: t.due }))
     .map((t) => (isDelivered(t) ? { ...t, due: dates[0] } : t))
+    // Work the team already started (In progress / Internal review) is happening today.
+    .map((t) => (!t.completed && ['In progress', 'Internal review'].includes(t.status) ? { ...t, due: dates[0], started: true } : t))
     .map((t) => ({ ...t, done: isDelivered(t) }))
     .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
     .filter((t) => days.has(t.due))
     .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
-    .sort((a, b) => b.done - a.done || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
+    .sort((a, b) => b.done - a.done || !!b.started - !!a.started || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
     .forEach((t) => days.get(t.due).push({ ...t, slots: t.total, date: t.due }));
 
   // Fill empty slots by pulling work forward from the following days (never later than its due date).
