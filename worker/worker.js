@@ -48,6 +48,7 @@ export default {
             owner: cf(t, 'Client task owner'),
             due: (clientDue ? String(clientDue).slice(0, 10) : null) || t.due_on,
             status: cf(t, 'Status') || 'No status',
+            priority: (t.custom_fields || []).filter((x) => x.name === 'Priority' && x.display_value).map((x) => x.display_value)[0] || null,
             completed: !!t.completed,
             delivered_at: t.completed ? t.completed_at : null,
             _check: !t.completed && ['Shared with client', 'Pending Approval'].includes(cf(t, 'Status')) && t.modified_at > since,

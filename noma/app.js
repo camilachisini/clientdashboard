@@ -58,84 +58,67 @@ async function refresh(fresh) {
 }
 
 // ---------- schedule ----------
-function windowDates() {
+function workingDays(n) {
   const dates = [];
   const d = new Date(); d.setHours(0, 0, 0, 0);
-  while (dates.length < 5) { if (d.getDay() % 6) dates.push(iso(d)); d.setDate(d.getDate() + 1); }
+  while (dates.length < n) { if (d.getDay() % 6) dates.push(iso(d)); d.setDate(d.getDate() + 1); }
   return dates;
 }
+const windowDates = () => workingDays(5);
 
-// Each task sits on its due date, in its Asana "Order". Tasks bigger than a day (XL)
-// put their first 8h on the working day before. What doesn't fit in 8 slots is overflow.
+// Scheduling rules
+// 1. Delivered today stays on today (faded).
+// 2. Work already started goes first: Internal review, then In progress.
+// 3. Then everything else by Client Due Date (earliest first); tasks due far ahead fill free slots;
+//    tasks with no Client Due Date fill whatever is left.
+// Work is poured into 8-slot days from today on, splitting across days when needed, so slots never sit empty.
+// A piece that lands after its due date is an overage: it blocks the next free slots and is flagged
+// to confirm the new date with the client.
 function plan(tasks) {
-  const dates = windowDates();
-  const days = new Map(dates.map((d) => [d, []]));
+  const horizon = workingDays(60);
+  const dates = horizon.slice(0, 5);
+  const today = dates[0];
   const rank = (t) => (t.order == null ? 1e9 : t.order);
-  // Further along first: Internal review, then In progress, then the rest.
   const stage = (t) => (t.status === 'Internal review' ? 2 : t.status === 'In progress' ? 1 : 0);
-  // Only work the studio still has to do; anything past due lands on today.
-  // Delivered today (or due today and delivered) stays on today, faded.
   const ON_BOARD = ['To-do', 'Auto-created', 'In progress', 'Internal review'];
-  tasks
-    .filter((t) => (!t.completed && t.due && ON_BOARD.includes(t.status)) || (isDelivered(t) && (t.due === dates[0] || deliveredOn(t) === dates[0])))
-    .map((t) => ({ ...t, clientDue: t.due }))
-    .map((t) => (isDelivered(t) ? { ...t, due: dates[0] } : t))
-    // Work the team already started (In progress / Internal review) is happening today.
-    .map((t) => (!t.completed && ['In progress', 'Internal review'].includes(t.status) ? { ...t, due: dates[0], started: true } : t))
-    .map((t) => ({ ...t, done: isDelivered(t) }))
-    .map((t) => (t.due < dates[0] ? { ...t, due: dates[0] } : t))
-    .filter((t) => days.has(t.due))
-    .map((t) => { const s = sizeOf(t); return { ...t, size: s.size, known: s.known, total: SLOTS[s.size] }; })
-    .sort((a, b) => b.done - a.done || stage(b) - stage(a) || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name))
-    .forEach((t) => days.get(t.due).push({ ...t, slots: t.total, date: t.due }));
+  const prep = (t) => { const s = sizeOf(t); return { ...t, clientDue: t.due, size: s.size, known: s.known, total: SLOTS[s.size] }; };
 
-  // Started work that doesn't fit today carries over to the next working day (split if part fits today).
-  if (dates.length > 1) {
-    const keep = []; const carry = []; let n = 0;
-    days.get(dates[0]).forEach((p) => {
-      if (n + p.slots <= CAP || !p.started) { keep.push(p); n += p.slots; return; }
-      const fit = Math.max(0, CAP - n);
-      if (fit > 0) { keep.push({ ...p, slots: fit }); n = CAP; }
-      carry.push({ ...p, slots: p.slots - fit, date: dates[1] });
-    });
-    days.set(dates[0], keep);
-    days.get(dates[1]).unshift(...carry);
-  }
+  const days = new Map(horizon.map((d) => [d, []]));
+  const used = new Map(horizon.map((d) => [d, 0]));
 
-  // Fill empty slots by pulling work forward from the following days (never later than its due date).
-  // A task that doesn't fit whole is split: part now, the rest stays on its own day.
-  const used = (d) => days.get(d).reduce((a, p) => a + p.slots, 0);
-  dates.forEach((date, i) => {
-    let free = CAP - used(date);
-    for (let j = i + 1; j < dates.length && free > 0; j++) {
-      const later = days.get(dates[j]);
-      while (free > 0) {
-        const k = later.findIndex((p) => !p.done);
-        if (k < 0) break;
-        const p = later[k];
-        if (p.slots <= free) {
-          later.splice(k, 1);
-          days.get(date).push({ ...p, date });
-          free -= p.slots;
-        } else {
-          days.get(date).push({ ...p, slots: free, date });
-          p.slots -= free;
-          free = 0;
-        }
-      }
+  tasks.filter((t) => isDelivered(t) && (t.due === today || deliveredOn(t) === today)).map(prep)
+    .forEach((t) => { days.get(today).push({ ...t, done: true, slots: t.total, date: today }); used.set(today, used.get(today) + t.total); });
+
+  const open = tasks.filter((t) => !t.completed && ON_BOARD.includes(t.status)).map(prep);
+  const started = open.filter((t) => stage(t) > 0).sort((a, b) => stage(b) - stage(a) || rank(a) - rank(b) || (a.due || '9999').localeCompare(b.due || '9999'));
+  const rest = open.filter((t) => stage(t) === 0).sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999') || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name));
+
+  let i = 0;
+  [...started, ...rest].forEach((t) => {
+    let left = t.total;
+    while (left > 0 && i < horizon.length) {
+      const d = horizon[i];
+      const free = CAP - used.get(d);
+      if (free <= 0) { i++; continue; }
+      const take = Math.min(free, left);
+      days.get(d).push({ ...t, slots: take, date: d, late: !!(t.due && d > t.due && t.due >= today) });
+      used.set(d, used.get(d) + take);
+      left -= take;
     }
   });
 
   // Number the pieces of split tasks (1/2, 2/2…).
   const pieces = new Map();
-  dates.forEach((d) => days.get(d).forEach((p) => { if (!pieces.has(p.id)) pieces.set(p.id, []); pieces.get(p.id).push(p); }));
-  pieces.forEach((list) => list.forEach((p, i) => { p.part = i + 1; p.parts = list.length; }));
+  horizon.forEach((d) => days.get(d).forEach((p) => { if (!pieces.has(p.id)) pieces.set(p.id, []); pieces.get(p.id).push(p); }));
+  pieces.forEach((list) => list.forEach((p, k) => { p.part = k + 1; p.parts = list.length; }));
 
   return dates.map((date) => {
     const list = days.get(date);
     const fit = []; const extra = []; let n = 0;
     list.forEach((p) => { if (n + p.slots <= CAP) { fit.push(p); n += p.slots; } else extra.push(p); });
-    return { date, fit, extra, used: n, total: list.reduce((a, p) => a + p.slots, 0) };
+    // Hours due this day that had to move to later days.
+    const moved = horizon.filter((d) => d > date).reduce((a, d) => a + days.get(d).filter((p) => p.late && p.due === date).reduce((x, p) => x + p.slots, 0), 0);
+    return { date, fit, extra, used: n, total: list.reduce((a, p) => a + p.slots, 0), moved };
   });
 }
 
@@ -146,11 +129,17 @@ function makeCard(t) {
   if (t.part > 1) card.classList.add('cont-prev');
   const top = el('div', 'nm-card-top');
   const head = el('div', 'nm-card-head');
-  head.appendChild(el('div', 'nm-card-name', t.name));
+  const nameEl = el('div', 'nm-card-name', t.name);
+  head.appendChild(nameEl);
   if (t.owner) head.appendChild(el('div', 'nm-card-due', t.owner));
-  top.append(head, el('span', 'nm-size', t.size));
+  const badges = el('div', 'nm-badges');
+  if (String(t.priority || '').toLowerCase() === 'high') badges.appendChild(el('span', 'nm-high', 'High'));
+  badges.appendChild(el('span', 'nm-size', t.size));
+  top.append(head, badges);
   const bottom = el('div', 'nm-card-bottom');
-  bottom.appendChild(el('span', 'nm-designer', t.clientDue ? `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}` : ''));
+  const dueTxt = t.clientDue ? `${MONTHS_SHORT[Number(t.clientDue.slice(5, 7)) - 1]} ${Number(t.clientDue.slice(8, 10))}` : 'No due date yet';
+  bottom.appendChild(el('span', 'nm-designer', t.late ? `Due ${dueTxt} · confirm new date with client` : dueTxt));
+  if (t.late) { card.classList.add('is-over'); nameEl.prepend(el('span', 'nm-warn', '⚠')); }
   if (t.done) { card.classList.add('is-done'); bottom.appendChild(el('span', 'nm-done', '✓ Delivered')); }
   if (t.parts > 1) bottom.appendChild(el('span', 'nm-part', `${t.part > 1 ? '← ' : ''}${t.part}/${t.parts}${t.part < t.parts ? ' →' : ''}`));
   card.append(top, bottom);
@@ -177,8 +166,9 @@ function render() {
     day.append(el('span', 'nm-day-name', d.date === today ? 'Today' : DAYS[wd]), el('span', 'nm-day-date', label(d.date)));
     const cap = el('div', 'nm-cap');
     cap.appendChild(el('span', 'nm-cap-n', `${d.total} / ${CAP} slots${free > 0 ? ` · ${free} free` : ''}`));
-    if (d.total === CAP) cap.appendChild(el('span', 'nm-badge', 'FULL'));
-    if (d.total > CAP) cap.appendChild(el('span', 'nm-badge is-over', `+${d.total - CAP}h OVER`));
+    const over = Math.max(0, d.total - CAP) + d.moved;
+    if (over > 0) cap.appendChild(el('span', 'nm-badge is-over', `+${over}h OVER`));
+    else if (d.total === CAP) cap.appendChild(el('span', 'nm-badge', 'FULL'));
     day.appendChild(cap);
 
     const track = el('div', 'nm-track');

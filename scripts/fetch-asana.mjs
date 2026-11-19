@@ -32,6 +32,7 @@ const tasks = raw.map((t) => ({
   // Always the Client Due Date; the internal due date only if the client date is empty.
   due: day(cf(t, 'Client Due Date')) || t.due_on,
   status: cf(t, 'Status') || 'No status',
+  priority: (t.custom_fields || []).filter((x) => x.name === 'Priority' && x.display_value).map((x) => x.display_value)[0] || null,
   completed: !!t.completed,
   // When it was delivered: completion time, or last change while Shared with client / Pending Approval.
   delivered_at: t.completed ? t.completed_at : null,
