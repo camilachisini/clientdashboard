@@ -133,7 +133,11 @@ a.nm-card.dragging { opacity: .35; }
 .nm-download { position: fixed; right: 20px; bottom: 16px; z-index: 5; font-family: 'Raleway', system-ui, sans-serif; font-size: 14px; font-weight: 700; background: #004854; color: #F7F9F2; border: 0; border-radius: 100px; padding: 10px 20px; cursor: pointer; box-shadow: 0 6px 20px rgba(0, 0, 0, .15); }
 .nm-download:disabled { opacity: .6; }
 .nm-more { cursor: default; }
-.render-mode .nm-download { display: none; }
+.render-mode .nm-actions { display: none; }
+body:not(.render-mode) .nm { padding-bottom: 64px; }
+.nm-actions { position: fixed; right: 20px; bottom: 16px; z-index: 5; display: flex; gap: 10px; }
+.nm-actions .nm-download { position: static; }
+.nm-download.nm-secondary { background: #F7F9F2; color: #004854; box-shadow: inset 0 0 0 2px #004854, 0 6px 20px rgba(0,0,0,.12); }
 .nm-lane { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
 .nm-lane .nm-track { flex: 1; min-height: 0; }
 .nm-over { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; background: #FBE3E1; border: 1.5px solid #B3261E; border-radius: 12px; padding: 6px 10px; color: #8F1E18; font-size: 13px; }
@@ -204,8 +208,8 @@ html, body { height: 100%; overflow: hidden; }
 </div>
 </div>
 
-<button type="button" class="nm-download" id="download">Download image</button>
+<div class="nm-actions"><button type="button" class="nm-download nm-secondary" id="update">Update now</button><button type="button" class="nm-download" id="download">Download image</button></div>
 <script src="html-to-image.js?v=2"></script>
-<script src="app.js?v=2026-11-19-4"></script>
+<script src="app.js?v=2026-11-19-5"></script>
 </body>
 </html>

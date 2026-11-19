@@ -193,5 +193,47 @@ if (RENDER_MODE) {
 }
 window.nmReady = ready;
 
+// ---------- update now ----------
+// Starts the "Update dashboard data" GitHub Action, then waits for the new data.json.
+// Needs a GitHub fine-grained token with Actions: Read and write on this repo only. It is kept in this browser only.
+const GH_KEY = 'nm-gh-token';
+const WORKFLOW_URL = 'https://api.github.com/repos/camilachisini/clientdashboard/actions/workflows/update-data.yml/dispatches';
+if (!RENDER_MODE) {
+  const ub = document.getElementById('update');
+  const setLabel = (t) => { ub.textContent = t; };
+  ub.addEventListener('click', async () => {
+    let token = localStorage.getItem(GH_KEY);
+    if (!token) {
+      token = (prompt('Paste your GitHub token (Actions: read and write, this repo only). It stays only in this browser.') || '').trim();
+      if (!token) return;
+      localStorage.setItem(GH_KEY, token);
+    }
+    ub.disabled = true; setLabel('Starting update…');
+    try {
+      const r = await fetch(WORKFLOW_URL, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ref: 'main' })
+      });
+      if (r.status === 401 || r.status === 403 || r.status === 404) { localStorage.removeItem(GH_KEY); throw new Error('token'); }
+      if (!r.ok) throw new Error(String(r.status));
+      setLabel('Updating from Asana…');
+      const before = state.updated;
+      const started = Date.now();
+      while (Date.now() - started < 5 * 60 * 1000) {
+        await new Promise((res) => setTimeout(res, 10000));
+        await refresh();
+        if (state.updated !== before) { setLabel('Updated ✓'); setTimeout(() => setLabel('Update now'), 3000); return; }
+      }
+      setLabel('Still updating, reload in a minute');
+    } catch (e) {
+      alert(e.message === 'token' ? 'GitHub didn’t accept that token. Click Update now to paste a new one.' : 'Could not start the update. Please try again.');
+      setLabel('Update now');
+    } finally {
+      ub.disabled = false;
+    }
+  });
+}
+
 refresh().then(() => readyResolve());
 setInterval(refresh, 5 * 60 * 1000);
