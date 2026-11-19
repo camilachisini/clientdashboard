@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-19T18:32:25.094Z",
+  "generated_at": "2026-11-19T19:52:22.191Z",
   "tasks": [
     {
       "id": "1220704943640841",
@@ -8,7 +8,7 @@
       "owner": "Matt Madden",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Small (1-2 hours)",
+      "size": "Extra Large (8-12 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704943640841",
       "order": null
@@ -20,7 +20,7 @@
       "owner": "Adeline Jaulin",
       "due": null,
       "status": "To-do",
-      "size": "Medium (2-6 hours)",
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220704649595084",
       "order": null
@@ -43,7 +43,7 @@
       "designer": "Juliana Dimon",
       "owner": "Charlie McCarthy",
       "due": "2026-11-19",
-      "status": "Internal review",
+      "status": "Shared with client",
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821123419",
@@ -104,7 +104,7 @@
       "owner": "Adeline Jaulin",
       "due": "2026-12-30",
       "status": "To-do",
-      "size": "Medium (2-6 hours)",
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220617014456727",
       "order": null
@@ -152,7 +152,7 @@
       "owner": "Adeline Jaulin",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Medium (2-6 hours)",
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681845826",
       "order": null
@@ -164,7 +164,7 @@
       "owner": "Jordyn Jones",
       "due": "2026-11-23",
       "status": "To-do",
-      "size": "Medium (2-6 hours)",
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220577044636135",
       "order": null
@@ -176,7 +176,7 @@
       "owner": "Ashley Eining",
       "due": "2026-11-20",
       "status": "To-do",
-      "size": "Medium (2-6 hours)",
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220439790267829",
       "order": null
