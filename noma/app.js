@@ -127,23 +127,32 @@ function render() {
     const lane = el('div', 'nm-lane');
     lane.appendChild(track);
     if (d.extra.length) {
-      const hours = d.extra.reduce((a, t) => a + t.slots, 0);
-      const over = el('div', 'nm-over');
-      over.appendChild(el('span', 'nm-over-label', `+${hours}h over capacity`));
+      // Tasks that don't fit: same slot sizes, in red, on extra lines under the day.
+      const over = el('div', 'nm-track nm-over-track');
+      over.style.gridTemplateColumns = `repeat(${CAP}, minmax(0, 1fr))`;
+      let line = 1; let col = 1;
       d.extra.forEach((t) => {
-        const chip = el('span', 'nm-over-task');
-        chip.append(el('b', 'nm-over-size', t.size), el('span', 'nm-over-name', t.name));
-        if (t.owner || t.designer) chip.appendChild(el('em', null, t.owner || t.designer));
-        over.appendChild(chip);
+        const span = Math.min(t.slots, CAP);
+        if (col + span - 1 > CAP) { line++; col = 1; }
+        const card = makeCard(t);
+        card.classList.add('is-over');
+        card.querySelector('.nm-card-name').prepend(el('span', 'nm-warn', '⚠'));
+        card.style.gridColumn = `${col} / span ${span}`;
+        card.style.gridRow = String(line);
+        col += span;
+        over.appendChild(card);
       });
+      over.style.gridTemplateRows = `repeat(${line}, minmax(0, 1fr))`;
+      over.style.flex = String(line);
       lane.appendChild(over);
+      row.style.flex = String(1 + line);
     }
     row.append(day, lane);
     board.appendChild(row);
   });
 
   const updated = state.updated ? new Date(state.updated).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }) : '—';
-  document.getElementById('foot').textContent = `Updated ${updated} · Next 5 working days · 1 slot = 1 hour · red = tasks that don't fit in the day`;
+  document.getElementById('foot').textContent = `Updated ${updated} · Next 5 working days · 1 slot = 1 hour · red ⚠ = tasks that don't fit in the 8 slots of the day`;
 }
 
 // ---------- download ----------
