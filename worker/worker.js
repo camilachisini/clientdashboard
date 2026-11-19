@@ -45,7 +45,7 @@ export default {
             name: String(t.name || '').trim(),
             designer: t.assignee && t.assignee.name ? t.assignee.name : 'Unassigned',
             owner: cf(t, 'Client task owner'),
-            due: t.due_on || (clientDue ? String(clientDue).slice(0, 10) : null),
+            due: (clientDue ? String(clientDue).slice(0, 10) : null) || t.due_on,
             status: cf(t, 'Status') || 'No status',
             size: cf(t, 'Task size'),
             order: order && order.number_value != null ? Number(order.number_value) : null

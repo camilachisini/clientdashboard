@@ -27,7 +27,8 @@ const tasks = raw.map((t) => ({
   name: String(t.name || '').trim(),
   designer: t.assignee && t.assignee.name ? t.assignee.name : 'Unassigned',
   owner: cf(t, 'Client task owner'),
-  due: t.due_on || day(cf(t, 'Client Due Date')),
+  // Always the Client Due Date; the internal due date only if the client date is empty.
+  due: day(cf(t, 'Client Due Date')) || t.due_on,
   status: cf(t, 'Status') || 'No status',
   size: cf(t, 'Task size'),
   client_link: cf(t, 'Client task link'),
