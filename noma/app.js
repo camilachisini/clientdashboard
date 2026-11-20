@@ -76,7 +76,7 @@ function workingDays(n) {
 const windowDates = () => workingDays(5);
 
 // Scheduling rules
-// 1. Delivered today stays on today (faded).
+// 1. Only work delivered today stays on today (faded); earlier deliveries drop off.
 // 2. Work already started goes first: Internal review, then In progress.
 // 3. Then everything else by Client Due Date (earliest first); tasks due far ahead fill free slots;
 //    tasks with no Client Due Date fill whatever is left.
@@ -95,7 +95,7 @@ function plan(tasks) {
   const days = new Map(horizon.map((d) => [d, []]));
   const used = new Map(horizon.map((d) => [d, 0]));
 
-  tasks.filter((t) => isDelivered(t) && (t.due === today || deliveredOn(t) === today)).map(prep)
+  tasks.filter((t) => isDelivered(t) && deliveredOn(t) === today).map(prep)
     .forEach((t) => { days.get(today).push({ ...t, done: true, slots: t.total, date: today }); used.set(today, used.get(today) + t.total); });
 
   const open = tasks.filter((t) => !t.completed && ON_BOARD.includes(t.status)).map(prep);
