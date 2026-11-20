@@ -218,11 +218,11 @@ function render() {
         col += span;
         over.appendChild(card);
       });
-      over.style.gridTemplateRows = `repeat(${line}, minmax(0, 1fr))`;
+      over.style.gridTemplateRows = `repeat(${line}, minmax(124px, 1fr))`;
       over.style.flex = String(line);
       lane.appendChild(over);
       row.style.flex = String(1 + line);
-      row.style.minHeight = `${88 + line * 58}px`;
+      row.style.minHeight = `${124 * (1 + line) + 8 * line}px`;
     }
     row.append(day, lane);
     board.appendChild(row);
