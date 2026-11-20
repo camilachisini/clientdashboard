@@ -29,7 +29,8 @@ function sizeOf(t) {
 
 // Live data comes from the Cloudflare Worker (keeps the Asana token secret).
 // If it isn't set up or doesn't answer, the page falls back to data.json from the GitHub Action.
-const LIVE_URL = '';
+// On Cloudflare this is served by functions/api/tasks.js; elsewhere it 404s and the page falls back to data.json.
+const LIVE_URL = '/api/tasks';
 
 async function getData(fresh) {
   if (LIVE_URL) {
