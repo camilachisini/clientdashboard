@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T06:40:49.415Z",
+  "generated_at": "2026-11-20T15:47:21.456Z",
   "tasks": [
     {
       "id": "1220724732231041",
@@ -97,10 +97,10 @@
       "designer": "Juliana Dimon",
       "owner": "Charlie McCarthy",
       "due": "2026-11-20",
-      "status": "Internal review",
+      "status": "Shared with client",
       "priority": null,
       "completed": false,
-      "delivered_at": null,
+      "delivered_at": "2026-11-20T14:39:49.960Z",
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691843009149",
