@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-11-19T23:55:12.797Z",
+  "generated_at": "2026-11-20T06:40:49.415Z",
   "tasks": [
     {
       "id": "1220724732231041",
       "name": "Social Gif: Name the Gnome",
-      "designer": "Roberto Bizz",
-      "owner": null,
-      "due": null,
-      "status": "Auto-created",
+      "designer": "Juliana Dimon",
+      "owner": "Jordyn Jones",
+      "due": "2026-11-30",
+      "status": "To-do",
       "priority": null,
       "completed": false,
       "delivered_at": null,
-      "size": null,
+      "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220724732231041",
       "order": null
@@ -48,8 +48,8 @@
     },
     {
       "id": "1220700012813915",
-      "name": "A4 Noma Poster",
-      "designer": "Roberto Bizz",
+      "name": "A3 Noma Poster",
+      "designer": "Juliana Dimon",
       "owner": "Heather Pearse",
       "due": "2026-11-27",
       "status": "To-do",
