@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T22:23:45.692Z",
+  "generated_at": "2026-11-23T06:55:09.618Z",
   "tasks": [
     {
       "id": "1220752243862219",
@@ -14,21 +14,6 @@
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220752243862219",
-      "order": null
-    },
-    {
-      "id": "1220752349366590",
-      "name": "[Duplicate] Noma Labs Email Banner",
-      "designer": "Roberto Bizz",
-      "owner": null,
-      "due": null,
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:17:46.154Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220752349366590",
       "order": null
     },
     {
@@ -92,21 +77,6 @@
       "order": null
     },
     {
-      "id": "1220691821123419",
-      "name": "Blog thumbnail - \"Should Last Week's Outages Worry You? What Recent Headlines Mean in an Agent-Powered World\"",
-      "designer": "Juliana Dimon",
-      "owner": "Charlie McCarthy",
-      "due": "2026-11-19",
-      "status": "Complete",
-      "priority": "High",
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:23.485Z",
-      "size": "Small (1-2 hours)",
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821123419",
-      "order": null
-    },
-    {
       "id": "1220691821310419",
       "name": "Blog thumbnail - \"You've Got a Giant Inventory of AI Agents: Now What Do You Do with It?\"",
       "designer": "Juliana Dimon",
@@ -115,25 +85,10 @@
       "status": "Shared with client",
       "priority": null,
       "completed": false,
-      "delivered_at": "2026-11-20T17:52:16.782Z",
+      "delivered_at": null,
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691821310419",
-      "order": null
-    },
-    {
-      "id": "1220691843009149",
-      "name": "Blog thumbnail - \"Noma Expands Hosting to Australia and Singapore\"",
-      "designer": "Juliana Dimon",
-      "owner": "Charlie McCarthy",
-      "due": "2026-11-20",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:29.672Z",
-      "size": "Small (1-2 hours)",
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220691843009149",
       "order": null
     },
     {
@@ -182,36 +137,6 @@
       "order": null
     },
     {
-      "id": "1220587664656664",
-      "name": "2026-12 UKI CyberSync social media",
-      "designer": "Denise Mayer",
-      "owner": null,
-      "due": "2026-11-24",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:35.409Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220587664656664",
-      "order": null
-    },
-    {
-      "id": "1220581878988333",
-      "name": "2026-12 AI Sec summit post cards + sign",
-      "designer": "Juliana Dimon",
-      "owner": null,
-      "due": "2026-11-18",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:16.515Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220581878988333",
-      "order": null
-    },
-    {
       "id": "1220579681845826",
       "name": "2026-12 BNL Cloud Expo- social Card",
       "designer": "Denise Mayer",
@@ -227,21 +152,6 @@
       "order": null
     },
     {
-      "id": "1220579681622052",
-      "name": "2026-12 UKI FS-ISAC Social cards + post cards + game sign",
-      "designer": "Juliana Dimon",
-      "owner": null,
-      "due": "2026-11-20",
-      "status": "Complete",
-      "priority": "Normal",
-      "completed": true,
-      "delivered_at": "2026-11-19T17:28:04.892Z",
-      "size": "Small (1-2 hours)",
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681622052",
-      "order": null
-    },
-    {
       "id": "1220577044636135",
       "name": "Noma x GuidePoint reInvent Happy Hour",
       "designer": "Juliana Dimon",
@@ -254,66 +164,6 @@
       "size": "Medium (2-4 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220577044636135",
-      "order": null
-    },
-    {
-      "id": "1220439790267829",
-      "name": "'Sleigh the Season' Demo Request Graphics",
-      "designer": "Juliana Dimon",
-      "owner": "Ashley Eining",
-      "due": "2026-11-20",
-      "status": "Complete",
-      "priority": "High",
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:31.604Z",
-      "size": "Medium (2-4 hours)",
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220439790267829",
-      "order": null
-    },
-    {
-      "id": "1220378703709156",
-      "name": "Business Cards",
-      "designer": "Juliana Dimon",
-      "owner": null,
-      "due": "2026-11-17",
-      "status": "Complete",
-      "priority": "High",
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:12.602Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220378703709156",
-      "order": null
-    },
-    {
-      "id": "1220315936332209",
-      "name": "2026-12 UK CyberSync - social banner",
-      "designer": "Denise Mayer",
-      "owner": null,
-      "due": "2026-11-20",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:36.737Z",
-      "size": "Small (1-2 hours)",
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220315936332209",
-      "order": null
-    },
-    {
-      "id": "1220308968990287",
-      "name": "2026-12 UK AI Sec Summit - social banner",
-      "designer": "Thiago Duarte",
-      "owner": null,
-      "due": "2026-11-18",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:18.051Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220308968990287",
       "order": null
     },
     {
@@ -344,21 +194,6 @@
       "size": null,
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220184041311874",
-      "order": null
-    },
-    {
-      "id": "1220032300638068",
-      "name": "Platform | BOFu LI Ad Graphics",
-      "designer": "Juliana Dimon",
-      "owner": null,
-      "due": "2026-11-16",
-      "status": "Complete",
-      "priority": null,
-      "completed": true,
-      "delivered_at": "2026-11-20T21:21:04.125Z",
-      "size": null,
-      "client_link": null,
-      "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220032300638068",
       "order": null
     },
     {
