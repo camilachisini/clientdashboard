@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-23T06:55:09.618Z",
+  "generated_at": "2026-11-23T19:07:01.219Z",
   "tasks": [
     {
       "id": "1220752243862219",
@@ -37,7 +37,7 @@
       "designer": "Juliana Dimon",
       "owner": "Matt Madden",
       "due": "2026-11-23",
-      "status": "To-do",
+      "status": "Internal review",
       "priority": null,
       "completed": false,
       "delivered_at": null,
@@ -97,7 +97,7 @@
       "designer": "Juliana Dimon",
       "owner": "Charlie McCarthy",
       "due": "2026-11-23",
-      "status": "To-do",
+      "status": "In progress",
       "priority": null,
       "completed": false,
       "delivered_at": null,
@@ -112,7 +112,7 @@
       "designer": "Thiago Duarte",
       "owner": "Pia Rodil",
       "due": "2026-11-23",
-      "status": "To-do",
+      "status": "In progress",
       "priority": null,
       "completed": false,
       "delivered_at": null,
@@ -142,11 +142,11 @@
       "designer": "Denise Mayer",
       "owner": "Adeline Jaulin",
       "due": "2026-11-23",
-      "status": "To-do",
+      "status": "In progress",
       "priority": null,
       "completed": false,
       "delivered_at": null,
-      "size": "Medium (2-4 hours)",
+      "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220579681845826",
       "order": null
