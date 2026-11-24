@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T15:01:36.213Z",
+  "generated_at": "2026-11-24T23:51:44.707Z",
   "tasks": [
     {
       "id": "1220834031265105",
@@ -22,7 +22,7 @@
       "designer": "Juliana Dimon",
       "owner": "Ashley Eining",
       "due": "2026-11-25",
-      "status": "To-do",
+      "status": "Internal review",
       "priority": null,
       "completed": false,
       "delivered_at": null,
@@ -64,7 +64,7 @@
     {
       "id": "1220704649595084",
       "name": "2027-03 APJ Security Days Tokyo",
-      "designer": "Roberto Bizz",
+      "designer": "Juliana Dimon",
       "owner": "Adeline Jaulin",
       "due": "2027-01-15",
       "status": "To-do",
@@ -184,7 +184,7 @@
     {
       "id": "1220233175164701",
       "name": "2027-01 UK NSPCC Whiteball - chocolate bars",
-      "designer": "Juliana Dimon",
+      "designer": "Denise Mayer",
       "owner": "Adeline Jaulin",
       "due": "2026-12-11",
       "status": "To-do",
