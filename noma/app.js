@@ -78,8 +78,11 @@ const windowDates = () => workingDays(5);
 
 // Scheduling rules
 // 1. Only work delivered today stays on today (faded); earlier deliveries drop off.
-// 2. Work already started goes first: Internal review, then In progress.
-// 3. Then everything else by Client Due Date (earliest first); tasks due far ahead fill free slots;
+//    A task moved to delivered today whose Client Due Date was before today is not shown:
+//    it was most likely delivered earlier and the status just wasn't updated.
+// 2. Overdue work (Client Due Date before today) goes first, oldest due date first.
+// 3. Then work already started: Internal review, then In progress.
+// 4. Then everything else by Client Due Date (earliest first); tasks due far ahead fill free slots;
 //    tasks with no Client Due Date fill whatever is left.
 // Work is poured into 8-slot days from today on, splitting across days when needed, so slots never sit empty.
 // A piece that lands after its due date is an overage: it blocks the next free slots and is flagged
@@ -96,15 +99,17 @@ function plan(tasks) {
   const days = new Map(horizon.map((d) => [d, []]));
   const used = new Map(horizon.map((d) => [d, 0]));
 
-  tasks.filter((t) => isDelivered(t) && deliveredOn(t) === today).map(prep)
+  tasks.filter((t) => isDelivered(t) && deliveredOn(t) === today && !(t.due && t.due < today)).map(prep)
     .forEach((t) => { days.get(today).push({ ...t, done: true, slots: t.total, date: today }); used.set(today, used.get(today) + t.total); });
 
   const open = tasks.filter((t) => !t.completed && ON_BOARD.includes(t.status)).map(prep);
-  const started = open.filter((t) => stage(t) > 0).sort((a, b) => stage(b) - stage(a) || rank(a) - rank(b) || (a.due || '9999').localeCompare(b.due || '9999'));
-  const rest = open.filter((t) => stage(t) === 0).sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999') || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name));
+  const overdue = (t) => !!(t.due && t.due < today);
+  const late = open.filter(overdue).sort((a, b) => a.due.localeCompare(b.due) || stage(b) - stage(a) || rank(a) - rank(b));
+  const started = open.filter((t) => !overdue(t) && stage(t) > 0).sort((a, b) => stage(b) - stage(a) || rank(a) - rank(b) || (a.due || '9999').localeCompare(b.due || '9999'));
+  const rest = open.filter((t) => !overdue(t) && stage(t) === 0).sort((a, b) => (a.due || '9999').localeCompare(b.due || '9999') || rank(a) - rank(b) || b.total - a.total || a.name.localeCompare(b.name));
 
   let i = 0;
-  [...started, ...rest].forEach((t) => {
+  [...late, ...started, ...rest].forEach((t) => {
     let left = t.total;
     while (left > 0 && i < horizon.length) {
       const d = horizon[i];
