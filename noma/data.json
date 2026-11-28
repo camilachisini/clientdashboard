@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-27T19:54:27.590Z",
+  "generated_at": "2026-11-28T02:32:21.642Z",
   "tasks": [
     {
       "id": "1220910572914546",
@@ -112,10 +112,10 @@
       "designer": "Juliana Dimon",
       "owner": "Heather Pearse",
       "due": "2026-11-27",
-      "status": "Internal review",
+      "status": "Shared with client",
       "priority": null,
       "completed": false,
-      "delivered_at": null,
+      "delivered_at": "2026-11-27T22:49:50.639Z",
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220700012813915",
@@ -202,10 +202,10 @@
       "designer": "Juliana Dimon",
       "owner": null,
       "due": "2026-11-27",
-      "status": "In progress",
+      "status": "Shared with client",
       "priority": null,
       "completed": false,
-      "delivered_at": null,
+      "delivered_at": "2026-11-27T22:03:32.376Z",
       "size": "Small (1-2 hours)",
       "client_link": null,
       "asana_url": "https://app.asana.com/1/1211523527656234/project/1214040151426549/task/1220184041311874",
